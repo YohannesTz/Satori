@@ -18,6 +18,7 @@ coreSplashscreen = "1.2.0-alpha02"
 glanceAppwidget = "1.1.0"
 glanceMaterial3 = "1.1.0"
 workRuntimeKtx = "2.9.1"
+kotlinSerialization = "2.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -61,3 +62,4 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 kotlinSymbolProcessor = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 room = { id = "androidx.room", version.ref = "room" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization"}
