@@ -1,7 +1,9 @@
 package com.github.yohannestz.satori.data.remote
 
+import com.github.yohannestz.satori.utils.GOOGLE_API_BASE_URL
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.cache.HttpCache
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.ANDROID
@@ -29,5 +31,9 @@ val ktorHttpClient = HttpClient(OkHttp) {
     install(Logging) {
         logger = Logger.ANDROID
         level = LogLevel.ALL
+    }
+
+    install(DefaultRequest) {
+        url(GOOGLE_API_BASE_URL)
     }
 }

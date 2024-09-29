@@ -1,7 +1,7 @@
 package com.github.yohannestz.satori.data.remote.service
 
-import com.github.yohannestz.satori.data.model.Volume
-import com.github.yohannestz.satori.data.model.VolumeDetail
+import com.github.yohannestz.satori.data.model.volume.Volume
+import com.github.yohannestz.satori.data.model.volume.VolumeDetail
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -43,9 +43,9 @@ class GoogleBooksApi(private val client: HttpClient) {
         startIndex: Int,
         maxResults: Int,
         orderBy: String = "relevance"
-    ): Result<List<Volume>> {
+    ): Result<Volume> {
         return try {
-            val volumes: List<Volume> = client.get("/books/v1/volumes") {
+            val volumes: Volume = client.get("/books/v1/volumes") {
                 parameter("q", "categories:$category")
                 parameter("orderBy", orderBy)
                 parameter("startIndex", startIndex)

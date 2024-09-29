@@ -1,11 +1,11 @@
-package com.github.yohannestz.satori.data.model
+package com.github.yohannestz.satori.data.model.volume
 
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class VolumeDetail(
+data class Item(
     @SerialName("accessInfo")
     val accessInfo: AccessInfo,
     @SerialName("etag")
@@ -16,6 +16,8 @@ data class VolumeDetail(
     val kind: String,
     @SerialName("saleInfo")
     val saleInfo: SaleInfo,
+    @SerialName("searchInfo")
+    val searchInfo: SearchInfo,
     @SerialName("selfLink")
     val selfLink: String,
     @SerialName("volumeInfo")

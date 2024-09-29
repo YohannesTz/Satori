@@ -1,6 +1,6 @@
 package com.github.yohannestz.satori.data.local
 
-import com.github.yohannestz.satori.data.model.SearchHistory
+import com.github.yohannestz.satori.data.model.volume.SearchHistory
 
 fun SearchHistoryEntity.toSearchHistory(): SearchHistory {
     return SearchHistory(

@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Satori</string>
+    <string name="title_home">Home</string>
+    <string name="title_top">Top</string>
+    <string name="title_bookmarks">Bookmarks</string>
+    <string name="title_settings">Settings</string>
+    <string name="theme_system">Follow system</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="mean_score">Mean Score</string>
+    <string name="copied">Copied!</string>
+    <string name="autobiography">Autobiography</string>
+    <string name="business_investing">Business, Investing</string>
+    <string name="science_math">Science, Math</string>
+    <string name="computer_technology">Computers, Technology</string>
+    <string name="self_help">Self Help</string>
+    <string name="we_couldnt_find">Oops! we couldn\'t find anything</string>
+    <string name="romance">Romance</string>
+    <string name="biography">Biography</string>
+    <string name="fiction">Fiction</string>
 </resources>

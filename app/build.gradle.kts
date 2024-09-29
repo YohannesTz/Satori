@@ -41,6 +41,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -78,7 +79,12 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.work.runtime.ktx)
-    //ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.browser)
+    ksp(libs.androidx.room.compiler)
+
+    //Coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
     // Koin
     implementation(platform(libs.koin.bom))
@@ -92,6 +98,9 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.auth)
     implementation(libs.ktor.client.logging)
+
+    //Placeholder
+    implementation(libs.placeholder.material3)
 
     // Testing
     testImplementation(libs.junit)

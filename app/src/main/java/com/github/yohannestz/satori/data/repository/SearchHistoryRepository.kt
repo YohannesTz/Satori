@@ -4,7 +4,7 @@ import com.github.yohannestz.satori.data.local.SearchHistoryDao
 import com.github.yohannestz.satori.data.local.SearchHistoryEntity
 import com.github.yohannestz.satori.data.local.toSearchHistoryEntity
 import com.github.yohannestz.satori.data.local.toSearchHistoryList
-import com.github.yohannestz.satori.data.model.SearchHistory
+import com.github.yohannestz.satori.data.model.volume.SearchHistory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

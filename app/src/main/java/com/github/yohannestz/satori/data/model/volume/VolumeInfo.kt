@@ -1,4 +1,4 @@
-package com.github.yohannestz.satori.data.model
+package com.github.yohannestz.satori.data.model.volume
 
 
 import kotlinx.serialization.SerialName
@@ -42,4 +42,8 @@ data class VolumeInfo(
     val title: String,
     @SerialName("dimensions")
     val dimensions: Dimensions? = null,
+    @SerialName("authors")
+    val authors: List<String>? = null,
+    @SerialName("publisher")
+    val publisher: String? = null,
 )

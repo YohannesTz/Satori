@@ -1,5 +1,6 @@
 [versions]
 agp = "8.6.1"
+coilVersion = "3.0.0-alpha10"
 kotlin = "2.0.10"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -12,6 +13,7 @@ composeBom = "2024.09.02"
 koinBom = "3.6.0-wasm-alpha2"
 lifecycleViewmodelCompose = "2.8.6"
 navigationCompose = "2.8.1"
+placeholderMaterial3 = "2.0.0"
 room = "2.6.1"
 ksp = "2.0.10-1.0.24"
 coreSplashscreen = "1.2.0-alpha02"
@@ -19,9 +21,12 @@ glanceAppwidget = "1.1.0"
 glanceMaterial3 = "1.1.0"
 workRuntimeKtx = "2.9.1"
 kotlinSerialization = "2.0.0"
+browser = "1.8.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilVersion" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
@@ -54,6 +59,8 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorVersion" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorVersion" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorVersion" }
+androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
+placeholder-material3 = { module = "io.github.fornewid:placeholder-material3", version.ref = "placeholderMaterial3" }
 
 
 [plugins]

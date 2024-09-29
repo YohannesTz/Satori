@@ -1,4 +1,4 @@
-package com.github.yohannestz.satori.data.model
+package com.github.yohannestz.satori.data.model.volume
 
 
 import kotlinx.serialization.SerialName
