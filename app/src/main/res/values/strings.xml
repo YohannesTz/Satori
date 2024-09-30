@@ -20,4 +20,6 @@
     <string name="fiction">Fiction</string>
     <string name="search">Search</string>
     <string name="last_used">Last Used</string>
+    <string name="title_latest">Latest</string>
+    <string name="history">History</string>
 </resources>

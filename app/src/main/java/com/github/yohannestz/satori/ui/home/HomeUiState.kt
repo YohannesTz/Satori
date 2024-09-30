@@ -7,7 +7,7 @@ import com.github.yohannestz.satori.ui.base.state.UiState
 @Immutable
 data class HomeUiState(
     val selfHelpBooks: List<Item> = emptyList(),
-    val romanceBooks: List<Item> = emptyList(),
+    val historyBooks: List<Item> = emptyList(),
     val biographyBooks: List<Item> = emptyList(),
     val fictionBooks: List<Item> = emptyList(),
     override val isLoading: Boolean = true,

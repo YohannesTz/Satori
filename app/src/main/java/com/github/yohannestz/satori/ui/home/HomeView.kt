@@ -52,7 +52,7 @@ fun HomeView(
     val viewModel: HomeViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    HomeViewScreen(
+    HomeViewContent(
         uiState = uiState,
         event = viewModel,
         navActionManager = navActionManager,
@@ -63,7 +63,7 @@ fun HomeView(
 }
 
 @Composable
-fun HomeViewScreen(
+private fun HomeViewContent(
     uiState: HomeUiState,
     event: HomeEvent?,
     navActionManager: NavActionManager,
@@ -73,7 +73,7 @@ fun HomeViewScreen(
 ) {
     val context = LocalContext.current
     val scrollState = rememberScrollState()
-    val romanceListState = rememberLazyListState()
+    val historyListState = rememberLazyListState()
     val biographyListState = rememberLazyListState()
     val fictionListState = rememberLazyListState()
     val selfHelpListState = rememberLazyListState()
@@ -83,6 +83,10 @@ fun HomeViewScreen(
             context.showToast(uiState.message)
             event?.onMessageDisplayed()
         }
+    }
+
+    LaunchedEffect(Unit) {
+        event?.initRequestChain()
     }
 
     Column(
@@ -189,13 +193,13 @@ fun HomeViewScreen(
         }
 
         HorizontalListHeader(
-            text = stringResource(R.string.romance),
+            text = stringResource(R.string.history),
             onClick = dropUnlessResumed {
                 navActionManager.navigateTo("")
             }
         )
 
-        if (!uiState.isLoading && uiState.romanceBooks.isEmpty()) {
+        if (!uiState.isLoading && uiState.historyBooks.isEmpty()) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -212,12 +216,12 @@ fun HomeViewScreen(
                 modifier = Modifier
                     .padding(top = 8.dp)
                     .sizeIn(minHeight = MEDIA_POSTER_SMALL_HEIGHT.dp),
-                state = romanceListState,
+                state = historyListState,
                 contentPadding = PaddingValues(horizontal = 8.dp),
-                flingBehavior = rememberSnapFlingBehavior(lazyListState = romanceListState)
+                flingBehavior = rememberSnapFlingBehavior(lazyListState = historyListState)
             ) {
                 items(
-                    items = uiState.selfHelpBooks,
+                    items = uiState.historyBooks,
                     key = { it.id },
                     contentType = { it.volumeInfo }
                 ) {
@@ -266,7 +270,7 @@ fun HomeViewScreen(
                 flingBehavior = rememberSnapFlingBehavior(lazyListState = biographyListState)
             ) {
                 items(
-                    items = uiState.selfHelpBooks,
+                    items = uiState.biographyBooks,
                     key = { it.id },
                     contentType = { it.volumeInfo }
                 ) {
@@ -315,7 +319,7 @@ fun HomeViewScreen(
                 flingBehavior = rememberSnapFlingBehavior(lazyListState = fictionListState)
             ) {
                 items(
-                    items = uiState.selfHelpBooks,
+                    items = uiState.fictionBooks,
                     key = { it.id },
                     contentType = { it.volumeInfo }
                 ) {
@@ -342,7 +346,7 @@ fun HomeViewScreen(
 fun HomeScreenPreview() {
     SatoriTheme {
         Surface {
-            HomeViewScreen(
+            HomeViewContent(
                 uiState = HomeUiState(),
                 event = null,
                 navActionManager = NavActionManager.rememberNavActionManager(),

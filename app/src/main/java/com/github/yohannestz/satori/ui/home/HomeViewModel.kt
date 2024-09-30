@@ -1,10 +1,13 @@
 package com.github.yohannestz.satori.ui.home
 
+import androidx.lifecycle.viewModelScope
 import com.github.yohannestz.satori.data.model.OrderBy
 import com.github.yohannestz.satori.data.model.VolumeCategory
 import com.github.yohannestz.satori.data.repository.BookRepository
 import com.github.yohannestz.satori.ui.base.viewmodel.BaseViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val bookRepository: BookRepository
@@ -13,7 +16,16 @@ class HomeViewModel(
     override val mutableUiState = MutableStateFlow(HomeUiState())
 
     override fun initRequestChain() {
-
+        viewModelScope.launch(Dispatchers.IO) {
+            mutableUiState.value.run {
+                setLoading(true)
+                if (selfHelpBooks.isEmpty()) getSelfHelpBooks()
+                if (historyBooks.isEmpty()) getHistoryBooks()
+                if (biographyBooks.isEmpty()) getBiographyBooks()
+                if (fictionBooks.isEmpty()) getFictionBooks()
+                setLoading(false)
+            }
+        }
     }
 
     private suspend fun getSelfHelpBooks() {
@@ -33,9 +45,9 @@ class HomeViewModel(
         }
     }
 
-    private suspend fun getRomanceBooks() {
+    private suspend fun getHistoryBooks() {
         val result = bookRepository.getVolumesByCategory(
-            category = VolumeCategory.ROMANCE.value,
+            category = VolumeCategory.HISTORY.value,
             startIndex = 0,
             maxResults = 20,
             orderBy = OrderBy.RELEVANCE.value
@@ -43,7 +55,7 @@ class HomeViewModel(
 
         if (result.isSuccess) {
             mutableUiState.value = mutableUiState.value.copy(
-                selfHelpBooks = result.getOrNull()?.items ?: emptyList()
+                historyBooks = result.getOrNull()?.items ?: emptyList()
             )
         } else {
             showMessage(result.exceptionOrNull()?.message ?: "Something went wrong")
@@ -60,7 +72,7 @@ class HomeViewModel(
 
         if (result.isSuccess) {
             mutableUiState.value = mutableUiState.value.copy(
-                selfHelpBooks = result.getOrNull()?.items ?: emptyList()
+                biographyBooks = result.getOrNull()?.items ?: emptyList()
             )
         } else {
             showMessage(result.exceptionOrNull()?.message ?: "Something went wrong")
@@ -77,7 +89,7 @@ class HomeViewModel(
 
         if (result.isSuccess) {
             mutableUiState.value = mutableUiState.value.copy(
-                selfHelpBooks = result.getOrNull()?.items ?: emptyList()
+                fictionBooks = result.getOrNull()?.items ?: emptyList()
             )
         } else {
             showMessage(result.exceptionOrNull()?.message ?: "Something went wrong")

@@ -17,7 +17,7 @@ data class Item(
     @SerialName("saleInfo")
     val saleInfo: SaleInfo,
     @SerialName("searchInfo")
-    val searchInfo: SearchInfo,
+    val searchInfo: SearchInfo? = null,
     @SerialName("selfLink")
     val selfLink: String,
     @SerialName("volumeInfo")

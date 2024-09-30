@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SaleInfo(
     @SerialName("buyLink")
-    val buyLink: String,
+    val buyLink: String? = null,
     @SerialName("country")
     val country: String,
     @SerialName("isEbook")

@@ -46,7 +46,7 @@ class GoogleBooksApi(private val client: HttpClient) {
     ): Result<Volume> {
         return try {
             val volumes: Volume = client.get("/books/v1/volumes") {
-                parameter("q", "categories:$category")
+                parameter("q", "subject:$category")
                 parameter("orderBy", orderBy)
                 parameter("startIndex", startIndex)
                 parameter("maxResults", maxResults)

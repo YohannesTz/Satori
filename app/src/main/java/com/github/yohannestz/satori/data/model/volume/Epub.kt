@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Epub(
     @SerialName("downloadLink")
-    val downloadLink: String,
+    val downloadLink: String? = null,
     @SerialName("isAvailable")
     val isAvailable: Boolean
 )

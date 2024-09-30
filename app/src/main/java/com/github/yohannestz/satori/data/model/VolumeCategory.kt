@@ -2,6 +2,7 @@ package com.github.yohannestz.satori.data.model
 
 enum class VolumeCategory(val value: String) {
     ROMANCE("romance"),
+    HISTORY("history"),
     BIOGRAPHY("biography"),
     AUTOBIOGRAPHY("autobiography"),
     FICTION("fiction"),
