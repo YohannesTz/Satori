@@ -18,4 +18,6 @@
     <string name="romance">Romance</string>
     <string name="biography">Biography</string>
     <string name="fiction">Fiction</string>
+    <string name="search">Search</string>
+    <string name="last_used">Last Used</string>
 </resources>

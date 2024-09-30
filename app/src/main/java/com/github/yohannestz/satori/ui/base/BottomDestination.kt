@@ -53,6 +53,7 @@ sealed class BottomDestination(
 
     companion object {
         val values = listOf(Home, Top, Bookmarks, More)
+        val railValues = listOf(Home, Top, Bookmarks)
 
         fun String.toBottomDestinationIndex() = when (this) {
             Home.value -> 0

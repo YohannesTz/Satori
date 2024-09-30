@@ -80,6 +80,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.browser)
+    implementation(libs.androidx.material3.window.size)
     ksp(libs.androidx.room.compiler)
 
     //Coil
