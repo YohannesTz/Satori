@@ -29,7 +29,7 @@ sealed class BottomDestination(
 
     data object Latest : BottomDestination(
         value = "latest",
-        route = Route.Tab.Top,
+        route = Route.Tab.Latest,
         title = R.string.title_latest,
         icon = R.drawable.ic_outline_fire_24,
         iconSelected = R.drawable.ic_round_fire_24

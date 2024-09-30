@@ -10,6 +10,7 @@ import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
@@ -32,6 +33,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 import com.github.yohannestz.satori.R
+import com.github.yohannestz.satori.data.model.volume.Item
 import io.github.fornewid.placeholder.foundation.PlaceholderHighlight
 import io.github.fornewid.placeholder.material3.fade
 import io.github.fornewid.placeholder.material3.placeholder
@@ -234,4 +236,28 @@ object Extensions {
             highlight = PlaceholderHighlight.fade()
         )
     }
+
+    fun MutableList<Item>.addUniqueItems(newItems: List<Item>) {
+        Log.e("addUniqueItems", "addUniqueItems called with item size ${newItems.size}")
+        val existingIds = this.map { it.id }.toSet()
+
+        val uniqueItems = newItems.filterNot { item ->
+            if (existingIds.contains(item.id)) {
+                Log.e(
+                    "AddUniqueItems",
+                    "Duplicate item found: ${item.id}... offending motherfucker: ${item.etag}"
+                )
+                true
+            } else {
+                Log.e(
+                    "AddUniqueItems",
+                    "normal item: ${item.id}"
+                )
+                false
+            }
+        }
+
+        this.addAll(uniqueItems)
+    }
+
 }

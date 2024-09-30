@@ -17,6 +17,7 @@ import com.github.yohannestz.satori.ui.base.BottomDestination
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
 import com.github.yohannestz.satori.ui.base.navigation.Route
 import com.github.yohannestz.satori.ui.home.HomeView
+import com.github.yohannestz.satori.ui.latest.LatestView
 
 @Composable
 fun MainNavigation(
@@ -67,6 +68,19 @@ fun MainNavigation(
                 padding = padding,
                 topBarHeightPx = topBarHeightPx,
                 topBarOffsetY = topBarOffsetY
+            )
+        }
+
+        composable<Route.Tab.Latest>(
+            enterTransition = { fadeIn() },
+            exitTransition = { fadeOut() },
+            popEnterTransition = { fadeIn() },
+            popExitTransition = { fadeOut() },
+        ) {
+            LatestView(
+                navActionManager = navActionManager,
+                isCompactScreen = isCompactScreen,
+                padding = padding,
             )
         }
     }

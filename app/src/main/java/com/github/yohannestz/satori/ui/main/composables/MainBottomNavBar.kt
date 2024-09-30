@@ -1,5 +1,6 @@
 package com.github.yohannestz.satori.ui.main.composables
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
@@ -51,6 +52,7 @@ fun MainBottomNavBar(
                             }
 
                             onItemSelected(index)
+                            Log.e("TAG", "MainBottomNavBar: ${dest.route}")
                             navController.navigate(dest.route) {
                                 popUpTo(navController.graph.findStartDestination().id) {
                                     saveState = true

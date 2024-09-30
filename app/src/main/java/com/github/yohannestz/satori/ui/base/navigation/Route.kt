@@ -8,7 +8,7 @@ sealed interface Route {
         data object Home : Tab
 
         @Serializable
-        data object Top: Tab
+        data object Latest: Tab
 
         @Serializable
         data object Bookmarks: Tab

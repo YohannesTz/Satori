@@ -20,7 +20,6 @@ import com.github.yohannestz.satori.data.model.volume.Item
 import com.github.yohannestz.satori.ui.composables.MEDIA_POSTER_SMALL_HEIGHT
 import com.github.yohannestz.satori.ui.composables.MEDIA_POSTER_SMALL_WIDTH
 import com.github.yohannestz.satori.ui.composables.PosterImage
-import com.github.yohannestz.satori.ui.composables.SmallScoreIndicator
 
 @Composable
 fun HorizontalBookItem(
