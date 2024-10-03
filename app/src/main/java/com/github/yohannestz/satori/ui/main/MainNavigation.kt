@@ -11,13 +11,20 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.github.yohannestz.satori.ui.base.BottomDestination
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
 import com.github.yohannestz.satori.ui.base.navigation.Route
+import com.github.yohannestz.satori.ui.details.VolumeDetailView
+import com.github.yohannestz.satori.ui.details.VolumeDetailViewModel
 import com.github.yohannestz.satori.ui.home.HomeView
 import com.github.yohannestz.satori.ui.latest.LatestView
+import com.github.yohannestz.satori.utils.MEDIA_DETAIL_ID
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun MainNavigation(
@@ -81,6 +88,21 @@ fun MainNavigation(
                 navActionManager = navActionManager,
                 isCompactScreen = isCompactScreen,
                 padding = padding,
+            )
+        }
+
+        composable(
+            route = "${Route.VolumeDetail.BASE_ROUTE}/{$MEDIA_DETAIL_ID}",
+            arguments = listOf(navArgument(MEDIA_DETAIL_ID) { type = NavType.StringType })
+        ) { backStackEntry ->
+            val volumeId = backStackEntry.arguments?.getString(MEDIA_DETAIL_ID) ?: ""
+            val viewModel: VolumeDetailViewModel = koinViewModel {
+                parametersOf(volumeId)
+            }
+
+            VolumeDetailView(
+                navActionManager = navActionManager,
+                viewModel = viewModel
             )
         }
     }

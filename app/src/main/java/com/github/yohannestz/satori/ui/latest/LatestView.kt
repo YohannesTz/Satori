@@ -1,6 +1,5 @@
 package com.github.yohannestz.satori.ui.latest
 
-import android.util.Log
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.foundation.layout.Box
@@ -37,6 +36,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.yohannestz.satori.data.model.VolumeCategory
 import com.github.yohannestz.satori.ui.base.TabRowItem
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
+import com.github.yohannestz.satori.ui.base.navigation.Route
 import com.github.yohannestz.satori.ui.composables.BookListItemPlaceholder
 import com.github.yohannestz.satori.ui.composables.OnBottomReached
 import com.github.yohannestz.satori.ui.composables.TabRowWithPager
@@ -84,7 +84,7 @@ private fun LatestViewContent(
 
     val tabRowItems = remember {
         VolumeCategory.entries.map {
-            TabRowItem(value = it, title = it.lable)
+            TabRowItem(value = it, title = it.label)
         }.toTypedArray()
     }
 
@@ -108,8 +108,6 @@ private fun LatestViewContent(
             parameters = { parametersOf(selectedCategory) }
         )
         val uiState by event.uiState.collectAsStateWithLifecycle()
-
-
 
         if (uiState.categoryType != selectedCategory) {
             event.onCategorySelected(selectedCategory)
@@ -159,17 +157,17 @@ private fun LatestViewContent(
                 ) {
                     items(
                         items = uiState.itemList,
-                        key = { it.id },
+                        key = { item -> "${item.id}-${item.etag}" },
                         contentType = { it.volumeInfo }
                     ) { item ->
                         LatestListItem(
                             item = item,
                             onClick = {
-                                navActionManager.navigateTo("")
+                                navActionManager.navigateToDetail(item.id)
                             }
                         )
 
-                        if (uiState.isLoadingMore) {
+                        if (uiState.isLoadingMore || uiState.itemList.size < 5) {
                             this@LazyColumn.items(5, contentType = { it }) {
                                 BookListItemPlaceholder()
                             }
@@ -188,13 +186,13 @@ private fun LatestViewContent(
                 ) {
                     items(
                         items = uiState.itemList,
-                        key = { it.id },
+                        key = { item -> "${item.id}-${item.etag}" },
                         contentType = { it.volumeInfo }
                     ) { item ->
                         LatestListItem(
                             item = item,
                             onClick = {
-                                navActionManager.navigateTo("")
+                                navActionManager.navigateTo(Route.VolumeDetail(""))
                             }
                         )
 
@@ -212,10 +210,8 @@ private fun LatestViewContent(
                                     modifier = Modifier.align(Alignment.Center)
                                 )
                             }
-                            LaunchedEffect(uiState.canLoadMore) {
-                                if (uiState.canLoadMore && !uiState.isLoadingMore) {
-                                    event?.loadMore()
-                                }
+                            LaunchedEffect(true) {
+                                event.loadMore()
                             }
                         }
                     }

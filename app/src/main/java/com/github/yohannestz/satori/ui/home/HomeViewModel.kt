@@ -32,7 +32,7 @@ class HomeViewModel(
         val result = bookRepository.getVolumesByCategory(
             category = VolumeCategory.SELF_HELP.value,
             startIndex = 0,
-            maxResults = 20,
+            maxResults = 10,
             orderBy = OrderBy.RELEVANCE.value
         )
 
@@ -42,6 +42,7 @@ class HomeViewModel(
             )
         } else {
             showMessage(result.exceptionOrNull()?.message ?: "Something went wrong")
+            setLoading(false)
         }
     }
 
@@ -49,7 +50,7 @@ class HomeViewModel(
         val result = bookRepository.getVolumesByCategory(
             category = VolumeCategory.HISTORY.value,
             startIndex = 0,
-            maxResults = 20,
+            maxResults = 10,
             orderBy = OrderBy.RELEVANCE.value
         )
 
@@ -66,7 +67,7 @@ class HomeViewModel(
         val result = bookRepository.getVolumesByCategory(
             category = VolumeCategory.BIOGRAPHY.value,
             startIndex = 0,
-            maxResults = 20,
+            maxResults = 10,
             orderBy = OrderBy.RELEVANCE.value
         )
 
@@ -83,7 +84,7 @@ class HomeViewModel(
         val result = bookRepository.getVolumesByCategory(
             category = VolumeCategory.FICTION.value,
             startIndex = 0,
-            maxResults = 20,
+            maxResults = 10,
             orderBy = OrderBy.RELEVANCE.value
         )
 

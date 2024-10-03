@@ -1,6 +1,5 @@
 package com.github.yohannestz.satori.ui.latest
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.github.yohannestz.satori.data.model.OrderBy
 import com.github.yohannestz.satori.data.model.VolumeCategory
@@ -15,6 +14,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LatestViewModel(
     initialCategory: VolumeCategory? = null,
@@ -57,45 +57,54 @@ class LatestViewModel(
     }
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             mutableUiState
                 .distinctUntilChanged { old, new ->
-                    (old.loadMore == new.loadMore
-                            && old.categoryType == new.categoryType)
+                    old.loadMore == new.loadMore && old.categoryType == new.categoryType
                 }
                 .filter { it.categoryType != null && it.loadMore }
                 .collectLatest { uiState ->
-                    mutableUiState.update {
-                        it.copy(
+                    // Start loading
+                    mutableUiState.update { state ->
+                        state.copy(
                             isLoadingMore = true,
                             isLoading = uiState.nextPage == null
                         )
                     }
 
-                    val result = bookRepository.getVolumesByCategory(
-                        category = uiState.categoryType!!.value,
-                        startIndex = uiState.nextPage ?: 0,
-                        maxResults = 10,
-                        orderBy = OrderBy.NEWEST.value
-                    )
+                    withContext(Dispatchers.IO) {
+                        val result = bookRepository.getVolumesByCategory(
+                            category = uiState.categoryType!!.value,
+                            startIndex = uiState.nextPage ?: 0,
+                            maxResults = 10,
+                            orderBy = OrderBy.NEWEST.value
+                        )
 
-                    if (result.isSuccess) {
-                        val newItems = result.getOrNull()?.items ?: emptyList()
+                        if (result.isSuccess) {
+                            val newItems = result.getOrNull()?.items ?: emptyList()
 
-                        if (uiState.nextPage == null) uiState.itemList.clear()
-                        val nextPage = if (newItems.isNotEmpty()) (uiState.nextPage ?: 0) + 10 else null
-                        uiState.itemList.addUniqueItems(newItems)
+                            // Clear items if it's the first page
+                            if (uiState.nextPage == null) {
+                                uiState.itemList.clear()
+                            }
 
-                        mutableUiState.update {
-                            it.copy(
-                                loadMore = false,
-                                nextPage = nextPage,
-                                isLoadingMore = false,
-                                isLoading = false,
-                            )
+                            // Add unique items to the list
+                            uiState.itemList.addUniqueItems(newItems)
+
+                            // Determine the next page
+                            val nextPage = if (newItems.isNotEmpty()) (uiState.nextPage ?: 0) + 10 else null
+
+                            // Update UI state after processing
+                            mutableUiState.update { state ->
+                                state.copy(
+                                    loadMore = false,
+                                    nextPage = nextPage,
+                                    isLoadingMore = false,
+                                    isLoading = false
+                                )
+                            }
                         }
                     }
-
                 }
         }
     }

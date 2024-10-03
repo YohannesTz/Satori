@@ -1,6 +1,5 @@
 package com.github.yohannestz.satori.ui.home.composables
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,7 +32,6 @@ fun HorizontalBookItem(
             .clip(RoundedCornerShape(8.dp))
             .clickable(onClick = onClick)
     ) {
-        Log.e("PosterImage", item.volumeInfo.imageLinks.toString())
         PosterImage(
             url = item.volumeInfo.imageLinks?.thumbnail?.replace("http://", "https://")
                 ?: item.volumeInfo.imageLinks?.smallThumbnail?.replace("http://", "https://")

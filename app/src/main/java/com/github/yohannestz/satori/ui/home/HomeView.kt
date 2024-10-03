@@ -32,6 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.compose.dropUnlessResumed
 import com.github.yohannestz.satori.R
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
+import com.github.yohannestz.satori.ui.base.navigation.Route
 import com.github.yohannestz.satori.ui.composables.HorizontalListHeader
 import com.github.yohannestz.satori.ui.composables.HorizontalPlaceHolder
 import com.github.yohannestz.satori.ui.composables.MEDIA_POSTER_SMALL_HEIGHT
@@ -103,20 +104,20 @@ private fun HomeViewContent(
             modifier = Modifier.padding(top = 10.dp, start = 8.dp, end = 16.dp)
         ) {
             CategoriesCard(
-                text = stringResource(R.string.autobiography),
-                icon = R.drawable.ic_round_view_list_24,
+                text = stringResource(R.string.philosophy),
+                icon = R.drawable.ic_book_spark_4,
                 modifier = Modifier.weight(1f),
                 onClick = dropUnlessResumed {
-                    navActionManager.navigateTo("")
+                    navActionManager.navigateTo(Route.VolumeList)
                 }
             )
 
             CategoriesCard(
                 text = stringResource(R.string.business_investing),
-                icon = R.drawable.ic_round_view_list_24,
+                icon = R.drawable.ic_book_spark_4,
                 modifier = Modifier.weight(1f),
                 onClick = dropUnlessResumed {
-                    navActionManager.navigateTo("")
+                    navActionManager.navigateTo(Route.VolumeList)
                 }
             )
         }
@@ -126,19 +127,19 @@ private fun HomeViewContent(
         ) {
             CategoriesCard(
                 text = stringResource(R.string.science_math),
-                icon = R.drawable.ic_round_view_list_24,
+                icon = R.drawable.ic_book_spark_4,
                 modifier = Modifier.weight(1f),
                 onClick = dropUnlessResumed {
-                    navActionManager.navigateTo("")
+                    navActionManager.navigateTo(Route.VolumeList)
                 }
             )
 
             CategoriesCard(
                 text = stringResource(R.string.computer_technology),
-                icon = R.drawable.ic_round_view_list_24,
+                icon = R.drawable.ic_book_spark_4,
                 modifier = Modifier.weight(1f),
                 onClick = dropUnlessResumed {
-                    navActionManager.navigateTo("")
+                    navActionManager.navigateTo(Route.VolumeList)
                 }
             )
         }
@@ -146,7 +147,7 @@ private fun HomeViewContent(
         HorizontalListHeader(
             text = stringResource(R.string.self_help),
             onClick = dropUnlessResumed {
-                navActionManager.navigateTo("")
+                navActionManager.navigateTo(Route.VolumeList)
             }
         )
 
@@ -179,7 +180,7 @@ private fun HomeViewContent(
                     HorizontalBookItem(
                         item = it,
                         onClick = dropUnlessResumed {
-                            navActionManager.navigateTo("")
+                            navActionManager.navigateToDetail(it.id)
                         }
                     )
                 }
@@ -195,7 +196,7 @@ private fun HomeViewContent(
         HorizontalListHeader(
             text = stringResource(R.string.history),
             onClick = dropUnlessResumed {
-                navActionManager.navigateTo("")
+                navActionManager.navigateTo(Route.VolumeList)
             }
         )
 
@@ -228,7 +229,7 @@ private fun HomeViewContent(
                     HorizontalBookItem(
                         item = it,
                         onClick = dropUnlessResumed {
-                            navActionManager.navigateTo("")
+                            navActionManager.navigateToDetail(it.id)
                         }
                     )
                 }
@@ -244,7 +245,7 @@ private fun HomeViewContent(
         HorizontalListHeader(
             text = stringResource(R.string.biography),
             onClick = dropUnlessResumed {
-                navActionManager.navigateTo("")
+                navActionManager.navigateTo(Route.VolumeList)
             }
         )
 
@@ -277,7 +278,7 @@ private fun HomeViewContent(
                     HorizontalBookItem(
                         item = it,
                         onClick = dropUnlessResumed {
-                            navActionManager.navigateTo("")
+                            navActionManager.navigateToDetail(it.id)
                         }
                     )
                 }
@@ -293,7 +294,7 @@ private fun HomeViewContent(
         HorizontalListHeader(
             text = stringResource(R.string.fiction),
             onClick = dropUnlessResumed {
-                navActionManager.navigateTo("")
+                navActionManager.navigateTo(Route.VolumeList)
             }
         )
 
@@ -326,7 +327,7 @@ private fun HomeViewContent(
                     HorizontalBookItem(
                         item = it,
                         onClick = dropUnlessResumed {
-                            navActionManager.navigateTo("")
+                            navActionManager.navigateToDetail(it.id)
                         }
                     )
                 }

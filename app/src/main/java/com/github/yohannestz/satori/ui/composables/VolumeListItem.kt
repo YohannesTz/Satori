@@ -1,6 +1,5 @@
 package com.github.yohannestz.satori.ui.composables
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
@@ -27,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,7 +36,7 @@ import com.github.yohannestz.satori.utils.Extensions.defaultPlaceholder
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun BookListItem(
+fun VolumeListItem(
     title: String,
     subtitle: String,
     bottomText: String? = null,
@@ -100,7 +98,7 @@ fun BookListItem(
                         text = title,
                         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
                         color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 17.sp,
+                        fontSize = MaterialTheme.typography.titleMedium.fontSize,
                         lineHeight = 22.sp,
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 2
@@ -108,7 +106,10 @@ fun BookListItem(
                     Text(
                         text = subtitle,
                         modifier = Modifier.padding(horizontal = 16.dp),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+                        overflow = TextOverflow.Ellipsis,
+                        maxLines = 2
                     )
                 }
 
@@ -182,7 +183,7 @@ fun BookListItemPlaceholder() {
 fun BookListItemPreview() {
     MaterialTheme {
         Column {
-            BookListItem(
+            VolumeListItem(
                 title = "Example Book Title",
                 subtitle = "Example Subtitle",
                 bottomText = "Published: 2024",

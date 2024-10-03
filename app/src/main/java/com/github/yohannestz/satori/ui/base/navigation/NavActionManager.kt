@@ -10,8 +10,12 @@ import androidx.navigation.compose.rememberNavController
 class NavActionManager(
     private val navController: NavHostController
 ) {
-    fun navigateTo(route: String) {
+
+    fun navigateTo(route: Route) {
         navController.navigate(route)
+    }
+    fun navigateToDetail(id: String) {
+        navController.navigate("${Route.VolumeDetail.BASE_ROUTE}/$id")
     }
 
     fun navigateUp() {

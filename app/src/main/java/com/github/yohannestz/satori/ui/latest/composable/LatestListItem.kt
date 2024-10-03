@@ -2,14 +2,14 @@ package com.github.yohannestz.satori.ui.latest.composable
 
 import androidx.compose.runtime.Composable
 import com.github.yohannestz.satori.data.model.volume.Item
-import com.github.yohannestz.satori.ui.composables.BookListItem
+import com.github.yohannestz.satori.ui.composables.VolumeListItem
 
 @Composable
 fun LatestListItem(
     item: Item,
     onClick: (Item) -> Unit
 ) {
-    BookListItem(
+    VolumeListItem(
         title = item.volumeInfo.title ?: "--",
         subtitle = item.volumeInfo.authors?.joinToString(", ") ?: "--",
         bottomText = item.volumeInfo.publishedDate,

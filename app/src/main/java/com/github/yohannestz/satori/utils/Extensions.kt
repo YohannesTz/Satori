@@ -7,10 +7,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import android.util.Log
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
@@ -27,11 +31,19 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
+import androidx.core.text.HtmlCompat
 import com.github.yohannestz.satori.R
 import com.github.yohannestz.satori.data.model.volume.Item
 import io.github.fornewid.placeholder.foundation.PlaceholderHighlight
@@ -41,6 +53,41 @@ import kotlinx.coroutines.launch
 import kotlin.math.abs
 
 object Extensions {
+    fun String.htmlDecoded() = HtmlCompat.fromHtml(this, HtmlCompat.FROM_HTML_MODE_COMPACT)
+
+    fun Spanned.toAnnotatedString(): AnnotatedString = buildAnnotatedString {
+        val spanned = this@toAnnotatedString
+        append(spanned.toString())
+        getSpans(0, spanned.length, Any::class.java).forEach { span ->
+            val start = getSpanStart(span)
+            val end = getSpanEnd(span)
+            when (span) {
+                is StyleSpan -> when (span.style) {
+                    Typeface.BOLD -> addStyle(SpanStyle(fontWeight = FontWeight.Bold), start, end)
+                    Typeface.ITALIC -> addStyle(SpanStyle(fontStyle = FontStyle.Italic), start, end)
+                    Typeface.BOLD_ITALIC -> addStyle(
+                        SpanStyle(
+                            fontWeight = FontWeight.Bold,
+                            fontStyle = FontStyle.Italic
+                        ), start, end
+                    )
+                }
+
+                is UnderlineSpan -> addStyle(
+                    SpanStyle(textDecoration = TextDecoration.Underline),
+                    start,
+                    end
+                )
+
+                is ForegroundColorSpan -> addStyle(
+                    SpanStyle(color = Color(span.foregroundColor)),
+                    start,
+                    end
+                )
+            }
+        }
+    }
+
     fun Int.toStringPositiveValueOrUnknown(): String {
         return if (this > 0) this.toString() else UNKNOWN_CHAR
     }
@@ -238,26 +285,30 @@ object Extensions {
     }
 
     fun MutableList<Item>.addUniqueItems(newItems: List<Item>) {
-        Log.e("addUniqueItems", "addUniqueItems called with item size ${newItems.size}")
-        val existingIds = this.map { it.id }.toSet()
+        val existingIds = this.mapTo(mutableSetOf()) { it.id }
 
         val uniqueItems = newItems.filterNot { item ->
-            if (existingIds.contains(item.id)) {
-                Log.e(
-                    "AddUniqueItems",
-                    "Duplicate item found: ${item.id}... offending motherfucker: ${item.etag}"
-                )
-                true
-            } else {
-                Log.e(
-                    "AddUniqueItems",
-                    "normal item: ${item.id}"
-                )
-                false
-            }
+            existingIds.contains(item.id)
         }
 
         this.addAll(uniqueItems)
     }
 
+    fun androidx.compose.ui.graphics.Color.colorFromHex(color: String?) =
+        if (!color.isNullOrEmpty()) try {
+            Color(android.graphics.Color.parseColor(color))
+        } catch (e: IllegalArgumentException) {
+            null
+        } else null
+
+    fun Int.hexToString() = String.format("#%06X", 0xFFFFFF and this)
+
+    val androidx.compose.ui.graphics.Color.hexCode: String
+        inline get() {
+            val a: Int = (alpha * 255).toInt()
+            val r: Int = (red * 255).toInt()
+            val g: Int = (green * 255).toInt()
+            val b: Int = (blue * 255).toInt()
+            return java.lang.String.format("%02X%02X%02X%02X", a, r, g, b)
+        }
 }

@@ -11,6 +11,7 @@
     <string name="copied">Copied!</string>
     <string name="autobiography">Autobiography</string>
     <string name="business_investing">Business, Investing</string>
+    <string name="business_economics">Business &amp; Economics</string>
     <string name="science_math">Science, Math</string>
     <string name="computer_technology">Computers, Technology</string>
     <string name="self_help">Self Help</string>
@@ -22,4 +23,31 @@
     <string name="last_used">Last Used</string>
     <string name="title_latest">Latest</string>
     <string name="history">History</string>
+    <string name="action_back">Back</string>
+    <string name="share">Share</string>
+    <string name="add_to_bookmark">Add to Bookmark</string>
+    <string name="unknown">Unknown</string>
+    <string name="page_count">Pages Count</string>
+    <string name="content_version">Content Version</string>
+    <string name="language">Language</string>
+    <string name="lorem_ipsun" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="no_description">No Description</string>
+    <string name="copy">Copy</string>
+    <string name="more_information">More Information</string>
+    <string name="reading_modes">Reading Modes</string>
+    <string name="publisher">Publisher</string>
+    <string name="published_date">Published Date</string>
+    <string name="print_type">Print Type</string>
+    <string name="maturity_rating">Maturity Rating</string>
+    <string name="access_info">Access Info</string>
+    <string name="country">Country</string>
+    <string name="viewability">Viewability</string>
+    <string name="authors">Author(s)</string>
+    <string name="is_embeddable">Embeddable</string>
+    <string name="public_domain">Public Domain</string>
+    <string name="textToSpeechPermission">Text To Speech Permission</string>
+    <string name="not_provided">Not provided</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="philosophy">Philosophy</string>
 </resources>

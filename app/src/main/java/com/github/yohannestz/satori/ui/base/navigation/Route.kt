@@ -1,5 +1,6 @@
 package com.github.yohannestz.satori.ui.base.navigation
 
+import com.github.yohannestz.satori.utils.VOLUME_DETAIL
 import kotlinx.serialization.Serializable
 
 sealed interface Route {
@@ -15,5 +16,16 @@ sealed interface Route {
 
         @Serializable
         data object More: Tab
+    }
+
+    @Serializable
+    data object VolumeList: Route
+
+    @Serializable
+    data class VolumeDetail(val volumeId: String): Route {
+        companion object {
+            const val BASE_ROUTE = VOLUME_DETAIL
+            fun withArgs(volumeId: String) = "$BASE_ROUTE/$volumeId"
+        }
     }
 }

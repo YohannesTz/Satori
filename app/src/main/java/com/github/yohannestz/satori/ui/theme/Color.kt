@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 val placeholder_color = Color(0xFFDEDEDE)
 val light_scrim = Color(0xE6FFFFFF)
 val dark_scrim = Color(0x801b1b1b)
+val banner_shadow_color = Color(0x55000000)
 
 val stat_current_light = Color(0xFF006E17)
 val stat_current_dark = Color(0xFF00530F)
