@@ -37,10 +37,11 @@ import com.github.yohannestz.satori.data.model.VolumeCategory
 import com.github.yohannestz.satori.ui.base.TabRowItem
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
 import com.github.yohannestz.satori.ui.base.navigation.Route
-import com.github.yohannestz.satori.ui.composables.BookListItemPlaceholder
+import com.github.yohannestz.satori.ui.composables.BaseListItemPlaceHolder
 import com.github.yohannestz.satori.ui.composables.OnBottomReached
 import com.github.yohannestz.satori.ui.composables.TabRowWithPager
 import com.github.yohannestz.satori.ui.latest.composable.LatestListItem
+import com.github.yohannestz.satori.utils.DEFAULT_GRID_SPAN_COUNT
 import com.github.yohannestz.satori.utils.Extensions.collapsable
 import com.github.yohannestz.satori.utils.Extensions.showToast
 import org.koin.androidx.compose.koinViewModel
@@ -169,14 +170,14 @@ private fun LatestViewContent(
 
                         if (uiState.isLoadingMore || uiState.itemList.size < 5) {
                             this@LazyColumn.items(5, contentType = { it }) {
-                                BookListItemPlaceholder()
+                                BaseListItemPlaceHolder()
                             }
                         }
                     }
                 }
             } else {
                 LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
+                    columns = GridCells.Fixed(DEFAULT_GRID_SPAN_COUNT),
                     contentPadding = PaddingValues(
                         start = contentPadding.calculateStartPadding(layoutDirection),
                         top = contentPadding.calculateTopPadding() + 8.dp,
@@ -198,7 +199,7 @@ private fun LatestViewContent(
 
                         if (uiState.isLoadingMore) {
                             this@LazyVerticalGrid.items(5, contentType = { it }) {
-                                BookListItemPlaceholder()
+                                BaseListItemPlaceHolder()
                             }
                         }
                     }

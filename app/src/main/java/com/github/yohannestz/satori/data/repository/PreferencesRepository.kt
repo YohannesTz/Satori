@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.github.yohannestz.satori.data.model.ViewMode
 import com.github.yohannestz.satori.di.getValue
 import com.github.yohannestz.satori.di.setValue
 import com.github.yohannestz.satori.ui.base.StartTab
@@ -28,6 +29,7 @@ class PreferencesRepository(
 
     val startTab = dataStore.getValue(START_TAB_KEY, StartTab.LAST_USED.value)
         .map { StartTab.valueOf(tabName = it) }
+
     suspend fun setStartTab(value: StartTab) {
         dataStore.setValue(START_TAB_KEY, value.value)
     }
@@ -37,11 +39,18 @@ class PreferencesRepository(
         dataStore.setValue(LAST_TAB_KEY, value)
     }
 
+    val volumeListViewMode = dataStore.getValue(VOLUME_LIST_VIEW_MODE, ViewMode.LIST.name)
+        .map { ViewMode.valueOfOrNull(it) ?: ViewMode.LIST }
+
+    suspend fun setVolumeListViewMode(value: ViewMode) {
+        dataStore.setValue(VOLUME_LIST_VIEW_MODE, value.name)
+    }
+
     companion object {
         private val THEME_KEY = stringPreferencesKey("theme")
         private val USE_BLACK_COLORS_KEY = booleanPreferencesKey("use_black_colors")
         private val LAST_TAB_KEY = intPreferencesKey("last_tab")
         private val START_TAB_KEY = stringPreferencesKey("start_tab")
-
+        private val VOLUME_LIST_VIEW_MODE = stringPreferencesKey("volume_list_view_mode")
     }
 }

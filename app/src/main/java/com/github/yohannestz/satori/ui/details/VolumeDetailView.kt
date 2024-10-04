@@ -44,11 +44,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.yohannestz.satori.R
-import com.github.yohannestz.satori.ui.base.BackIconButton
-import com.github.yohannestz.satori.ui.base.InfoTitle
-import com.github.yohannestz.satori.ui.base.ShareIconButton
-import com.github.yohannestz.satori.ui.base.TextSubtitleVertical
-import com.github.yohannestz.satori.ui.base.TopBannerView
+import com.github.yohannestz.satori.ui.composables.BackIconButton
+import com.github.yohannestz.satori.ui.composables.InfoTitle
+import com.github.yohannestz.satori.ui.composables.ShareIconButton
+import com.github.yohannestz.satori.ui.composables.TextSubtitleVertical
+import com.github.yohannestz.satori.ui.composables.TopBannerView
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
 import com.github.yohannestz.satori.ui.composables.MEDIA_POSTER_BIG_HEIGHT
 import com.github.yohannestz.satori.ui.composables.MEDIA_POSTER_BIG_WIDTH
@@ -344,7 +344,8 @@ private fun VolumeDetailViewContent(
 
             InfoView(
                 title = stringResource(R.string.reading_modes),
-                info = "EPUB: ${if (uiState.volume?.accessInfo?.epub?.isAvailable == true) stringResource(R.string.yes) else stringResource(R.string.no)}\nPDF: ${if (uiState.volume?.accessInfo?.pdf?.isAvailable == true) stringResource(R.string.yes) else stringResource(R.string.no)}",
+                info = "${stringResource(R.string.epub)}: ${if (uiState.volume?.accessInfo?.epub?.isAvailable == true) stringResource(R.string.yes) else stringResource(R.string.no)}\n" +
+                        "${stringResource(R.string.pdf)}: ${if (uiState.volume?.accessInfo?.pdf?.isAvailable == true) stringResource(R.string.yes) else stringResource(R.string.no)}",
                 modifier = Modifier
                     .padding(bottom = 4.dp, end = 8.dp)
                     .defaultPlaceholder(uiState.isLoading)

@@ -50,4 +50,10 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="philosophy">Philosophy</string>
+    <string name="grid">Grid</string>
+    <string name="list">List</string>
+    <string name="epub">Epub</string>
+    <string name="pdf">Pdf</string>
+    <string name="html">Html</string>
+    <string name="view_mode">View Mode</string>
 </resources>

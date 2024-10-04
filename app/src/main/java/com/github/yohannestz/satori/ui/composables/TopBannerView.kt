@@ -1,4 +1,4 @@
-package com.github.yohannestz.satori.ui.base
+package com.github.yohannestz.satori.ui.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

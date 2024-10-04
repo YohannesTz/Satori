@@ -36,7 +36,7 @@ import com.github.yohannestz.satori.utils.Extensions.defaultPlaceholder
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun VolumeListItem(
+fun BaseListItem(
     title: String,
     subtitle: String,
     bottomText: String? = null,
@@ -128,7 +128,7 @@ fun VolumeListItem(
 }
 
 @Composable
-fun BookListItemPlaceholder() {
+fun BaseListItemPlaceHolder() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -183,7 +183,7 @@ fun BookListItemPlaceholder() {
 fun BookListItemPreview() {
     MaterialTheme {
         Column {
-            VolumeListItem(
+            BaseListItem(
                 title = "Example Book Title",
                 subtitle = "Example Subtitle",
                 bottomText = "Published: 2024",
@@ -192,7 +192,7 @@ fun BookListItemPreview() {
                 onClick = { },
                 onLongClick = { }
             )
-            BookListItemPlaceholder()
+            BaseListItemPlaceHolder()
         }
     }
 }

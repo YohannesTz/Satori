@@ -15,6 +15,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.github.yohannestz.satori.data.model.VolumeCategory
 import com.github.yohannestz.satori.ui.base.BottomDestination
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
 import com.github.yohannestz.satori.ui.base.navigation.Route
@@ -22,9 +23,11 @@ import com.github.yohannestz.satori.ui.details.VolumeDetailView
 import com.github.yohannestz.satori.ui.details.VolumeDetailViewModel
 import com.github.yohannestz.satori.ui.home.HomeView
 import com.github.yohannestz.satori.ui.latest.LatestView
+import com.github.yohannestz.satori.ui.volumelist.VolumeListView
 import com.github.yohannestz.satori.utils.MEDIA_DETAIL_ID
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
+import kotlin.reflect.typeOf
 
 @Composable
 fun MainNavigation(
@@ -103,6 +106,15 @@ fun MainNavigation(
             VolumeDetailView(
                 navActionManager = navActionManager,
                 viewModel = viewModel
+            )
+        }
+
+        composable<Route.VolumeList>(
+            typeMap = mapOf(typeOf<VolumeCategory>() to VolumeCategory.navType)
+        ) {
+            VolumeListView(
+                navActionManager = navActionManager,
+                isCompactScreen = isCompactScreen
             )
         }
     }

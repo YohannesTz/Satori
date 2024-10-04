@@ -1,11 +1,11 @@
-package com.github.yohannestz.satori.ui.latest.composable
+package com.github.yohannestz.satori.ui.volumelist.composables
 
 import androidx.compose.runtime.Composable
 import com.github.yohannestz.satori.data.model.volume.Item
 import com.github.yohannestz.satori.ui.composables.BaseListItem
 
 @Composable
-fun LatestListItem(
+fun VolumeListItem(
     item: Item,
     onClick: (Item) -> Unit
 ) {

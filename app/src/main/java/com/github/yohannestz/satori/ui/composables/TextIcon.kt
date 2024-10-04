@@ -1,4 +1,4 @@
-package com.github.yohannestz.satori.ui.base
+package com.github.yohannestz.satori.ui.composables
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.clickable
