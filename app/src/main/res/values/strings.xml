@@ -56,4 +56,5 @@
     <string name="pdf">Pdf</string>
     <string name="html">Html</string>
     <string name="view_mode">View Mode</string>
+    <string name="no_results">No Results</string>
 </resources>

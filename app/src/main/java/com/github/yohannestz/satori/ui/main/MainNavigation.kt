@@ -5,10 +5,13 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -23,6 +26,7 @@ import com.github.yohannestz.satori.ui.details.VolumeDetailView
 import com.github.yohannestz.satori.ui.details.VolumeDetailViewModel
 import com.github.yohannestz.satori.ui.home.HomeView
 import com.github.yohannestz.satori.ui.latest.LatestView
+import com.github.yohannestz.satori.ui.search.SearchHostView
 import com.github.yohannestz.satori.ui.volumelist.VolumeListView
 import com.github.yohannestz.satori.utils.MEDIA_DETAIL_ID
 import org.koin.androidx.compose.koinViewModel
@@ -115,6 +119,27 @@ fun MainNavigation(
             VolumeListView(
                 navActionManager = navActionManager,
                 isCompactScreen = isCompactScreen
+            )
+        }
+
+        composable<Route.Search>(
+            enterTransition = {
+                expandVertically(expandFrom = Alignment.Top)
+            },
+            exitTransition = {
+                shrinkVertically(shrinkTowards = Alignment.Top)
+            },
+            popEnterTransition = {
+                expandVertically(expandFrom = Alignment.Top)
+            },
+            popExitTransition = {
+                shrinkVertically(shrinkTowards = Alignment.Top)
+            }
+        ) {
+            SearchHostView(
+                isCompactScreen = isCompactScreen,
+                padding = if (isCompactScreen) PaddingValues() else padding,
+                navActionManager = navActionManager
             )
         }
     }

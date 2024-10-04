@@ -20,9 +20,12 @@ sealed interface Route {
     }
 
     @Serializable
+    data object Search : Route
+
+    @Serializable
     data class VolumeList(val volumeCategory: VolumeCategory) : Route {
         companion object {
-            const val BASE_ROUTE = "volume_list"
+            private const val BASE_ROUTE = "volume_list"
             fun withArgs(volumeCategory: VolumeCategory) = "$BASE_ROUTE/${volumeCategory.name}"
         }
     }

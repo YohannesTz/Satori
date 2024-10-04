@@ -8,6 +8,4 @@ interface LatestEvent : PagedUiEvent {
     fun refreshList()
     fun onItemSelected(item: Item)
     fun onCategorySelected(category: VolumeCategory)
-    fun showMessage(message: String?)
-    fun onMessageDisplayed()
 }

@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.dropUnlessResumed
 import androidx.navigation.NavController
 import com.github.yohannestz.satori.R
+import com.github.yohannestz.satori.ui.base.navigation.Route
 
 @Composable
 fun MainTopAppBar(
@@ -39,7 +40,7 @@ fun MainTopAppBar(
     ) {
         Card(
             onClick = dropUnlessResumed {
-                navController.navigate("")
+                navController.navigate(Route.Search)
             },
             modifier = modifier
                 .statusBarsPadding()

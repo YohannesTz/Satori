@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
     entities = [
         SearchHistoryEntity::class,
     ],
-    version = 1,
+    version = 2,
 )
 @TypeConverters(DatabaseConverters::class)
 abstract class SatoriDatabase: RoomDatabase() {

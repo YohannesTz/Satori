@@ -17,9 +17,21 @@ class SearchHistoryRepository(
 
     suspend fun addItem(query: String) {
         val trimmedQuery = query.trim()
+
+        if (trimmedQuery.isNotBlank()) {
+            dao.insertSearchHistory(
+                SearchHistoryEntity(
+                    query = trimmedQuery
+                )
+            )
+        }
     }
 
     suspend fun deleteItem(item: SearchHistory) {
         dao.deleteSearchHistory(item.toSearchHistoryEntity())
+    }
+
+    suspend fun deleteItemByQuery(query: String) {
+        dao.deleteSearchHistoryByQuery(query)
     }
 }

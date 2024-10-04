@@ -1,4 +1,5 @@
-package com.github.yohannestz.satori.ui.volumelist.composables
+package com.github.yohannestz.satori.ui.search.composable
+
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -24,7 +25,7 @@ import com.github.yohannestz.satori.ui.composables.PosterImage
 import com.github.yohannestz.satori.utils.Extensions.defaultPlaceholder
 
 @Composable
-fun VolumeListGridItem(
+fun SearchListGridItem(
     item: Item,
     onClick: () -> Unit
 ) {
@@ -74,7 +75,7 @@ fun VolumeListGridItem(
 }
 
 @Composable
-fun VolumeListGridItemPlaceHolder() {
+fun SearchListGridItemPlaceHolder() {
     Column(
         modifier = Modifier
             .padding(horizontal = 8.dp)

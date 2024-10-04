@@ -1,5 +1,5 @@
 package com.github.yohannestz.satori.ui.base.event
 
-interface PagedUiEvent {
+interface PagedUiEvent: UiEvent {
     fun loadMore()
 }

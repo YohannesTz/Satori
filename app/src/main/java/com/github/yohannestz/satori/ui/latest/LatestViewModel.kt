@@ -83,18 +83,13 @@ class LatestViewModel(
                         if (result.isSuccess) {
                             val newItems = result.getOrNull()?.items ?: emptyList()
 
-                            // Clear items if it's the first page
                             if (uiState.nextPage == null) {
                                 uiState.itemList.clear()
                             }
 
-                            // Add unique items to the list
                             uiState.itemList.addUniqueItems(newItems)
-
-                            // Determine the next page
                             val nextPage = if (newItems.isNotEmpty()) (uiState.nextPage ?: 0) + 10 else null
 
-                            // Update UI state after processing
                             mutableUiState.update { state ->
                                 state.copy(
                                     loadMore = false,
