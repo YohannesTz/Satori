@@ -54,6 +54,7 @@ sealed class BottomDestination(
     companion object {
         val values = listOf(Home, Latest, Bookmarks, More)
         val railValues = listOf(Home, Latest, Bookmarks)
+        private val topAppBarDisallowed = listOf(Bookmarks)
 
         fun String.toBottomDestinationIndex() = when (this) {
             Home.value -> 0
@@ -66,6 +67,11 @@ sealed class BottomDestination(
         fun NavBackStackEntry.isBottomDestination() =
             destination.hierarchy.any { dest ->
                 values.any { value -> dest.hasRoute(value.route::class) }
+            }
+
+        fun NavBackStackEntry.isTopAppBarDisallowed() =
+            destination.hierarchy.any { dest ->
+                topAppBarDisallowed.any { value -> dest.hasRoute(value.route::class) }
             }
 
         @Composable

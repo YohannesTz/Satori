@@ -7,6 +7,7 @@ import com.github.yohannestz.satori.ui.base.state.UiState
 @Immutable
 data class VolumeDetailUiState(
     val volume: VolumeDetail? = null,
+    val isBookMarked: Boolean = false,
     override val isLoading: Boolean = false,
     override val message: String? = null
 ) : UiState() {

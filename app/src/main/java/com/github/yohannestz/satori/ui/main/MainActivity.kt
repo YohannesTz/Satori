@@ -37,6 +37,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.github.yohannestz.satori.ui.base.BottomDestination.Companion.isBottomDestination
+import com.github.yohannestz.satori.ui.base.BottomDestination.Companion.isTopAppBarDisallowed
 import com.github.yohannestz.satori.ui.base.BottomDestination.Companion.toBottomDestinationIndex
 import com.github.yohannestz.satori.ui.base.ThemeStyle
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
@@ -163,12 +164,15 @@ fun MainView(
     val isBottomDestination by remember {
         derivedStateOf { navBackStackEntry?.isBottomDestination() == true }
     }
+    val isTopAppBarDisallowed by remember {
+        derivedStateOf { navBackStackEntry?.isTopAppBarDisallowed() == true }
+    }
 
     Scaffold(
         topBar = {
             if (isCompactScreen) {
                 MainTopAppBar(
-                    isVisible = isBottomDestination,
+                    isVisible = (isBottomDestination && !isTopAppBarDisallowed),
                     navController = navController,
                     modifier = Modifier
                         .graphicsLayer {

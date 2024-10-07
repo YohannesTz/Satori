@@ -22,6 +22,7 @@ import com.github.yohannestz.satori.data.model.VolumeCategory
 import com.github.yohannestz.satori.ui.base.BottomDestination
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
 import com.github.yohannestz.satori.ui.base.navigation.Route
+import com.github.yohannestz.satori.ui.bookmarks.BookMarksView
 import com.github.yohannestz.satori.ui.details.VolumeDetailView
 import com.github.yohannestz.satori.ui.details.VolumeDetailViewModel
 import com.github.yohannestz.satori.ui.home.HomeView
@@ -95,6 +96,18 @@ fun MainNavigation(
                 navActionManager = navActionManager,
                 isCompactScreen = isCompactScreen,
                 padding = padding,
+            )
+        }
+
+        composable<Route.Tab.Bookmarks>(
+            enterTransition = { fadeIn() },
+            exitTransition = { fadeOut() },
+            popEnterTransition = { fadeIn() },
+            popExitTransition = { fadeOut() },
+        ) {
+            BookMarksView(
+                navActionManager = navActionManager,
+                isCompactScreen = isCompactScreen
             )
         }
 

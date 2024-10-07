@@ -1,4 +1,4 @@
-package com.github.yohannestz.satori.data.local
+package com.github.yohannestz.satori.data.local.searchhistory
 
 import androidx.room.Entity
 import androidx.room.Index

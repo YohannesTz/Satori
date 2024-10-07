@@ -137,19 +137,40 @@ private fun VolumeDetailViewContent(
             )
         },
         floatingActionButton = {
-            ExtendedFloatingActionButton(
-                onClick = {},
-                icon = {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_outline_collections_bookmark_24),
-                        contentDescription = stringResource(R.string.add_to_bookmark)
-                    )
-                },
-                text = {
-                    Text(stringResource(R.string.add_to_bookmark))
-                },
-                expanded = !isScrolledDown
-            )
+            if (!uiState.isBookMarked) {
+                ExtendedFloatingActionButton(
+                    onClick = {
+                        event?.onAddToBookMarkClicked(uiState.volume)
+                    },
+                    icon = {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_outline_collections_bookmark_24),
+                            contentDescription = stringResource(R.string.add_to_bookmark)
+                        )
+                    },
+                    text = {
+                        Text(stringResource(R.string.add_to_bookmark))
+                    },
+                    expanded = !isScrolledDown
+                )
+            } else {
+                ExtendedFloatingActionButton(
+                    onClick = {
+                        event?.onRemoveFromBookMarkClicked(uiState.volume)
+                    },
+                    icon = {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_round_delete_24),
+                            contentDescription = stringResource(R.string.remove_from_bookmark)
+                        )
+                    },
+                    text = {
+                        Text(stringResource(R.string.remove_from_bookmark))
+                    },
+                    expanded = !isScrolledDown,
+                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                )
+            }
         }
     ) { padding ->
         Column(

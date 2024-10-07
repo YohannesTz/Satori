@@ -1,4 +1,4 @@
-package com.github.yohannestz.satori.data.local
+package com.github.yohannestz.satori.data.local.searchhistory
 
 import com.github.yohannestz.satori.data.model.volume.SearchHistory
 

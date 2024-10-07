@@ -9,6 +9,8 @@ import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,6 +27,7 @@ fun DefaultScaffoldWithMediumTopAppBar(
     actions: @Composable (RowScope.() -> Unit) = {},
     scrollBehavior: TopAppBarScrollBehavior,
     contentWindowInsets: WindowInsets = WindowInsets.systemBars,
+    colors: TopAppBarColors = TopAppBarDefaults.mediumTopAppBarColors(),
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
@@ -41,7 +44,8 @@ fun DefaultScaffoldWithMediumTopAppBar(
                 },
                 navigationIcon = navigationIcon,
                 actions = actions,
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
+                colors = colors
             )
         },
         floatingActionButton = floatActionButton,

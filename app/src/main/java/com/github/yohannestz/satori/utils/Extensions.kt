@@ -45,6 +45,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 import androidx.core.text.HtmlCompat
 import com.github.yohannestz.satori.R
+import com.github.yohannestz.satori.data.model.volume.BookMarkItem
 import com.github.yohannestz.satori.data.model.volume.Item
 import io.github.fornewid.placeholder.foundation.PlaceholderHighlight
 import io.github.fornewid.placeholder.material3.fade
@@ -282,6 +283,16 @@ object Extensions {
             color = MaterialTheme.colorScheme.outline,
             highlight = PlaceholderHighlight.fade()
         )
+    }
+
+    fun MutableList<BookMarkItem>.addUniqueBookMarkItems(newItems: List<BookMarkItem>) {
+        val existingIds = this.mapTo(mutableSetOf()) { it.id }
+
+        val uniqueItems = newItems.filterNot { item ->
+            existingIds.contains(item.id)
+        }
+
+        this.addAll(uniqueItems)
     }
 
     fun MutableList<Item>.addUniqueItems(newItems: List<Item>) {
