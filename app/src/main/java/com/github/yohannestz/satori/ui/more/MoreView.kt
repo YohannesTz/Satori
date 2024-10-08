@@ -80,7 +80,7 @@ private fun MoreViewContent (
             .padding(padding)
     ) {
         Icon(
-            painter = painterResource(R.drawable.ic_launcher_foreground),
+            painter = painterResource(R.drawable.ic_satori_launcher_foreground),
             contentDescription = stringResource(R.string.app_name),
             modifier = Modifier
                 .padding(vertical = 30.dp)

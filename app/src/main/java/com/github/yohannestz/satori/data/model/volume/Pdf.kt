@@ -7,5 +7,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Pdf(
     @SerialName("isAvailable")
-    val isAvailable: Boolean
+    val isAvailable: Boolean,
+
+    @SerialName("acsTokenLink")
+    val acsTokenLink: String? = null
 )

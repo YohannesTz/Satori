@@ -96,7 +96,7 @@ private fun AboutViewContent(
                     )
                 }
             } else {
-                uiState.contributors?.forEach { contributorItem ->
+                uiState.contributors.forEach { contributorItem ->
                     ContributorsItem(
                         item = contributorItem,
                         onClick = {

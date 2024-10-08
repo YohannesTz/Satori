@@ -37,9 +37,11 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -54,6 +56,7 @@ import com.github.yohannestz.satori.ui.composables.ShareIconButton
 import com.github.yohannestz.satori.ui.composables.TextSubtitleVertical
 import com.github.yohannestz.satori.ui.composables.TopBannerView
 import com.github.yohannestz.satori.ui.details.composables.InfoView
+import com.github.yohannestz.satori.ui.details.composables.InfoViewWithContent
 import com.github.yohannestz.satori.utils.Extensions.copyToClipBoard
 import com.github.yohannestz.satori.utils.Extensions.defaultPlaceholder
 import com.github.yohannestz.satori.utils.Extensions.htmlDecoded
@@ -357,19 +360,18 @@ private fun VolumeDetailViewContent(
 
             InfoView(
                 title = stringResource(R.string.published_date),
-                info = uiState.volume?.volumeInfo?.publishedDate ?: stringResource(R.string.unknown),
+                info = uiState.volume?.volumeInfo?.publishedDate
+                    ?: stringResource(R.string.unknown),
                 modifier = Modifier
                     .padding(bottom = 4.dp, end = 8.dp)
                     .defaultPlaceholder(uiState.isLoading)
             )
 
-            InfoView(
+            InfoViewWithContent(
                 title = stringResource(R.string.reading_modes),
-                info = "${stringResource(R.string.epub)}: ${if (uiState.volume?.accessInfo?.epub?.isAvailable == true) stringResource(R.string.yes) else stringResource(R.string.no)}\n" +
-                        "${stringResource(R.string.pdf)}: ${if (uiState.volume?.accessInfo?.pdf?.isAvailable == true) stringResource(R.string.yes) else stringResource(R.string.no)}",
-                modifier = Modifier
-                    .padding(bottom = 4.dp, end = 8.dp)
-                    .defaultPlaceholder(uiState.isLoading)
+                epubLink = uiState.volume?.accessInfo?.epub?.downloadLink,
+                pdfLink = uiState.volume?.accessInfo?.pdf?.acsTokenLink,
+                modifier = Modifier.padding(8.dp)
             )
 
             InfoView(
@@ -401,7 +403,9 @@ private fun VolumeDetailViewContent(
 
             InfoView(
                 title = stringResource(R.string.is_embeddable),
-                info = if (uiState.volume?.accessInfo?.embeddable == true) stringResource(R.string.yes) else stringResource(R.string.no),
+                info = if (uiState.volume?.accessInfo?.embeddable == true) stringResource(R.string.yes) else stringResource(
+                    R.string.no
+                ),
                 modifier = Modifier
                     .padding(bottom = 4.dp, end = 8.dp)
                     .defaultPlaceholder(uiState.isLoading)
@@ -409,7 +413,9 @@ private fun VolumeDetailViewContent(
 
             InfoView(
                 title = stringResource(R.string.public_domain),
-                info = if (uiState.volume?.accessInfo?.publicDomain == true) stringResource(R.string.yes) else stringResource(R.string.no),
+                info = if (uiState.volume?.accessInfo?.publicDomain == true) stringResource(R.string.yes) else stringResource(
+                    R.string.no
+                ),
                 modifier = Modifier
                     .padding(bottom = 4.dp, end = 8.dp)
                     .defaultPlaceholder(uiState.isLoading)
