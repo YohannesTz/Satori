@@ -54,7 +54,7 @@ sealed class BottomDestination(
     companion object {
         val values = listOf(Home, Latest, Bookmarks, More)
         val railValues = listOf(Home, Latest, Bookmarks)
-        private val topAppBarDisallowed = listOf(Bookmarks)
+        private val topAppBarDisallowed = listOf(Bookmarks, More)
 
         fun String.toBottomDestinationIndex() = when (this) {
             Home.value -> 0

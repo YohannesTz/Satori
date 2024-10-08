@@ -19,6 +19,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.github.yohannestz.satori.data.model.VolumeCategory
+import com.github.yohannestz.satori.ui.about.AboutView
 import com.github.yohannestz.satori.ui.base.BottomDestination
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
 import com.github.yohannestz.satori.ui.base.navigation.Route
@@ -27,7 +28,9 @@ import com.github.yohannestz.satori.ui.details.VolumeDetailView
 import com.github.yohannestz.satori.ui.details.VolumeDetailViewModel
 import com.github.yohannestz.satori.ui.home.HomeView
 import com.github.yohannestz.satori.ui.latest.LatestView
+import com.github.yohannestz.satori.ui.more.MoreView
 import com.github.yohannestz.satori.ui.search.SearchHostView
+import com.github.yohannestz.satori.ui.settings.SettingsView
 import com.github.yohannestz.satori.ui.volumelist.VolumeListView
 import com.github.yohannestz.satori.utils.MEDIA_DETAIL_ID
 import org.koin.androidx.compose.koinViewModel
@@ -111,6 +114,20 @@ fun MainNavigation(
             )
         }
 
+        composable<Route.Tab.More>(
+            enterTransition = { fadeIn() },
+            exitTransition = { fadeOut() },
+            popEnterTransition = { fadeIn() },
+            popExitTransition = { fadeOut() },
+        ) {
+            MoreView(
+                navActionManager = navActionManager,
+                padding = padding,
+                topBarHeightPx = topBarHeightPx,
+                topBarOffsetY = topBarOffsetY
+            )
+        }
+
         composable(
             route = "${Route.VolumeDetail.BASE_ROUTE}/{$MEDIA_DETAIL_ID}",
             arguments = listOf(navArgument(MEDIA_DETAIL_ID) { type = NavType.StringType })
@@ -152,6 +169,18 @@ fun MainNavigation(
             SearchHostView(
                 isCompactScreen = isCompactScreen,
                 padding = if (isCompactScreen) PaddingValues() else padding,
+                navActionManager = navActionManager
+            )
+        }
+
+        composable<Route.Settings> {
+            SettingsView(
+                navActionManager = navActionManager
+            )
+        }
+
+        composable<Route.About> {
+            AboutView(
                 navActionManager = navActionManager
             )
         }

@@ -119,6 +119,21 @@ object Extensions {
         }
     }
 
+    fun Context.openEmail(recipient: String, subject: String, body: String) {
+        val uri = Uri.parse("mailto:$recipient")
+            .buildUpon()
+            .appendQueryParameter("subject", subject)
+            .appendQueryParameter("body", body)
+            .build()
+
+        Intent(Intent.ACTION_SENDTO, uri).apply {
+            if (resolveActivity(packageManager) != null) {
+                startActivity(this)
+            }
+        }
+    }
+
+
     fun Context.openShareSheet(url: String) {
         Intent(Intent.ACTION_SEND).apply {
             putExtra(Intent.EXTRA_TEXT, url)
@@ -226,7 +241,27 @@ object Extensions {
         }
     }
 
-    fun getCurrentLanguageTag() = LocaleListCompat.getAdjustedDefault()[0]?.toLanguageTag()
+    val Context.versionName: String
+        get() = packageManager
+            .getPackageInfo(packageName, 0)
+            .versionName.toString()
+
+    @Suppress("DEPRECATION")
+    val Context.versionCode: Long
+        get() = when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.P -> {
+                packageManager
+                    .getPackageInfo(packageName, 0)
+                    .longVersionCode
+            }
+
+            else -> {
+                packageManager
+                    .getPackageInfo(packageName, 0)
+                    .versionCode.toLong()
+            }
+        }
+
 
     fun Modifier.collapsable(
         state: ScrollableState,

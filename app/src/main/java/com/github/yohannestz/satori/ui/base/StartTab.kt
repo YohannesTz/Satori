@@ -7,14 +7,14 @@ enum class StartTab(
 ) {
     LAST_USED("last_used"),
     HOME("home"),
-    TOP("top"),
+    LATEST("latest"),
     BOOKMARKS("bookmarks"),
     MORE("more");
 
     val stringRes
         get() = when (this) {
             HOME -> R.string.title_home
-            TOP -> R.string.title_top
+            LATEST -> R.string.title_top
             BOOKMARKS -> R.string.title_bookmarks
             MORE -> R.string.title_settings
             LAST_USED -> R.string.last_used

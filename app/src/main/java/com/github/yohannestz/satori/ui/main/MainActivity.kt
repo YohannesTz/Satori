@@ -85,8 +85,8 @@ class MainActivity : ComponentActivity() {
                 val isCompactScreen = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
 
                 SatoriTheme(
-                    darkTheme = true,
-                    useBlackColors = false
+                    darkTheme = isDark,
+                    useBlackColors = useBlackColors
                 ) {
                     val backgroundColor = MaterialTheme.colorScheme.background
                     Surface(
@@ -186,7 +186,7 @@ fun MainView(
                 MainBottomNavBar(
                     navController = navController,
                     navBackStackEntry = navBackStackEntry,
-                    isVisible = isBottomDestination,
+                    isVisible = isBottomDestination && bottomBarState.value,
                     onItemSelected = saveLastTab,
                     topBarOffsetY = topBarOffsetY
                 )

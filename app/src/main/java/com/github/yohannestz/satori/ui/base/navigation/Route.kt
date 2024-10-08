@@ -23,6 +23,12 @@ sealed interface Route {
     data object Search : Route
 
     @Serializable
+    data object Settings: Route
+
+    @Serializable
+    data object About: Route
+
+    @Serializable
     data class VolumeList(val volumeCategory: VolumeCategory) : Route {
         companion object {
             private const val BASE_ROUTE = "volume_list"
