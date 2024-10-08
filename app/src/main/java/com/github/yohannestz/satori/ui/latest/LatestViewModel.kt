@@ -1,10 +1,12 @@
 package com.github.yohannestz.satori.ui.latest
 
 import androidx.lifecycle.viewModelScope
+import com.github.yohannestz.satori.data.model.Filter
 import com.github.yohannestz.satori.data.model.OrderBy
 import com.github.yohannestz.satori.data.model.VolumeCategory
 import com.github.yohannestz.satori.data.model.volume.Item
 import com.github.yohannestz.satori.data.repository.BookRepository
+import com.github.yohannestz.satori.data.repository.PreferencesRepository
 import com.github.yohannestz.satori.ui.base.viewmodel.BaseViewModel
 import com.github.yohannestz.satori.utils.Extensions.addUniqueItems
 import kotlinx.coroutines.Dispatchers
@@ -12,12 +14,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class LatestViewModel(
     initialCategory: VolumeCategory? = null,
+    private val defaultPreferencesRepository: PreferencesRepository,
     private val bookRepository: BookRepository
 ) : BaseViewModel<LatestUiState>(), LatestEvent {
 
@@ -77,7 +81,9 @@ class LatestViewModel(
                             category = uiState.categoryType!!.value,
                             startIndex = uiState.nextPage ?: 0,
                             maxResults = 10,
-                            orderBy = OrderBy.NEWEST.value
+                            orderBy = OrderBy.NEWEST.value,
+                            printType = defaultPreferencesRepository.defaultPrintType.first().value,
+                            filter = if (defaultPreferencesRepository.onlyShowFreeContent.first()) Filter.FULL.value else Filter.EMPTY.value
                         )
 
                         if (result.isSuccess) {

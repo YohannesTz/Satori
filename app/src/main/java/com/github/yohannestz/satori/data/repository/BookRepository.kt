@@ -9,11 +9,16 @@ class BookRepository(
         query: String,
         startIndex: Int,
         maxResults: Int,
-        orderBy: String
+        orderBy: String,
+        printType: String?,
+        filter: String?
     ) = googleBooksApi.searchVolume(
         query = query,
         startIndex = startIndex,
         maxResults = maxResults,
+        orderBy = orderBy,
+        printType = printType.takeIf { !it.isNullOrBlank() },
+        filter = filter.takeIf { !it.isNullOrBlank() }
     )
 
     suspend fun getVolume(
@@ -22,16 +27,19 @@ class BookRepository(
         id = volumeId
     )
 
-
     suspend fun getVolumesByCategory(
         category: String,
         startIndex: Int,
         maxResults: Int,
-        orderBy: String
+        orderBy: String,
+        printType: String?,
+        filter: String?
     ) = googleBooksApi.getVolumesByCategory(
         category = category,
         startIndex = startIndex,
         maxResults = maxResults,
-        orderBy = orderBy
+        orderBy = orderBy,
+        printType = printType.takeIf { !it.isNullOrBlank() },
+        filter = filter.takeIf { !it.isNullOrBlank() }
     )
 }

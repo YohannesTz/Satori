@@ -1,15 +1,19 @@
 package com.github.yohannestz.satori.ui.home
 
 import androidx.lifecycle.viewModelScope
+import com.github.yohannestz.satori.data.model.Filter
 import com.github.yohannestz.satori.data.model.OrderBy
 import com.github.yohannestz.satori.data.model.VolumeCategory
 import com.github.yohannestz.satori.data.repository.BookRepository
+import com.github.yohannestz.satori.data.repository.PreferencesRepository
 import com.github.yohannestz.satori.ui.base.viewmodel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
+    private val defaultPreferencesRepository: PreferencesRepository,
     private val bookRepository: BookRepository
 ) : BaseViewModel<HomeUiState>(), HomeEvent {
 
@@ -33,7 +37,9 @@ class HomeViewModel(
             category = VolumeCategory.SELF_HELP.value,
             startIndex = 0,
             maxResults = 10,
-            orderBy = OrderBy.RELEVANCE.value
+            orderBy = OrderBy.RELEVANCE.value,
+            printType = defaultPreferencesRepository.defaultPrintType.first().value,
+            filter = if (defaultPreferencesRepository.onlyShowFreeContent.first()) Filter.FULL.value else Filter.EMPTY.value
         )
 
         if (result.isSuccess) {
@@ -51,7 +57,9 @@ class HomeViewModel(
             category = VolumeCategory.HISTORY.value,
             startIndex = 0,
             maxResults = 10,
-            orderBy = OrderBy.RELEVANCE.value
+            orderBy = OrderBy.RELEVANCE.value,
+            printType = defaultPreferencesRepository.defaultPrintType.first().value,
+            filter = if (defaultPreferencesRepository.onlyShowFreeContent.first()) Filter.FULL.value else Filter.EMPTY.value
         )
 
         if (result.isSuccess) {
@@ -68,7 +76,9 @@ class HomeViewModel(
             category = VolumeCategory.BIOGRAPHY.value,
             startIndex = 0,
             maxResults = 10,
-            orderBy = OrderBy.RELEVANCE.value
+            orderBy = OrderBy.RELEVANCE.value,
+            printType = defaultPreferencesRepository.defaultPrintType.first().value,
+            filter = if (defaultPreferencesRepository.onlyShowFreeContent.first()) Filter.FULL.value else Filter.EMPTY.value
         )
 
         if (result.isSuccess) {
@@ -85,7 +95,9 @@ class HomeViewModel(
             category = VolumeCategory.FICTION.value,
             startIndex = 0,
             maxResults = 10,
-            orderBy = OrderBy.RELEVANCE.value
+            orderBy = OrderBy.RELEVANCE.value,
+            printType = defaultPreferencesRepository.defaultPrintType.first().value,
+            filter = if (defaultPreferencesRepository.onlyShowFreeContent.first()) Filter.FULL.value else Filter.EMPTY.value
         )
 
         if (result.isSuccess) {

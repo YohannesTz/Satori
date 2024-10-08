@@ -1,7 +1,7 @@
 package com.github.yohannestz.satori.ui.about
 
 import androidx.lifecycle.viewModelScope
-import com.github.yohannestz.satori.data.repository.GithubApiRepository
+import com.github.yohannestz.satori.data.repository.GithubRepository
 import com.github.yohannestz.satori.ui.base.viewmodel.BaseViewModel
 import com.github.yohannestz.satori.utils.GITHUB_SLUG
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class AboutViewModel(
-    private val githubApiRepository: GithubApiRepository
+    private val githubApiRepository: GithubRepository
 ) : BaseViewModel<AboutUiState>() {
     override val mutableUiState: MutableStateFlow<AboutUiState> = MutableStateFlow(AboutUiState())
 

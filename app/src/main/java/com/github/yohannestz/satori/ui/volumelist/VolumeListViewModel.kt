@@ -3,6 +3,7 @@ package com.github.yohannestz.satori.ui.volumelist
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.github.yohannestz.satori.data.model.Filter
 import com.github.yohannestz.satori.data.model.OrderBy
 import com.github.yohannestz.satori.data.model.ViewMode
 import com.github.yohannestz.satori.data.model.VolumeCategory
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
@@ -79,7 +81,6 @@ class VolumeListViewModel(
                 }
                 .filter { it.categoryType != null }
                 .collectLatest { uiState ->
-                    // Start loading
                     mutableUiState.update { state ->
                         state.copy(
                             isLoadingMore = true,
@@ -92,25 +93,23 @@ class VolumeListViewModel(
                             category = volumeCategory.value,
                             startIndex = uiState.nextPage ?: 0,
                             maxResults = 10,
-                            orderBy = OrderBy.RELEVANCE.value
+                            orderBy = OrderBy.RELEVANCE.value,
+                            printType = defaultPreferencesRepository.defaultPrintType.first().value,
+                            filter = if (defaultPreferencesRepository.onlyShowFreeContent.first()) Filter.FULL.value else Filter.EMPTY.value
                         )
 
                         if (result.isSuccess) {
                             val newItems = result.getOrNull()?.items ?: emptyList()
 
-                            // Clear items if it's the first page
                             if (uiState.nextPage == null) {
                                 uiState.itemList.clear()
                             }
 
-                            // Add unique items to the list
                             uiState.itemList.addUniqueItems(newItems)
 
-                            // Determine the next page
                             val nextPage =
                                 if (newItems.isNotEmpty()) (uiState.nextPage ?: 0) + 10 else null
 
-                            // Update UI state after processing
                             mutableUiState.update { state ->
                                 state.copy(
                                     loadMore = false,

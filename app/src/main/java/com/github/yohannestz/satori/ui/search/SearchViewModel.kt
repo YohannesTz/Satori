@@ -1,9 +1,12 @@
 package com.github.yohannestz.satori.ui.search
 
 import androidx.lifecycle.viewModelScope
+import com.github.yohannestz.satori.data.model.Filter
 import com.github.yohannestz.satori.data.model.OrderBy
+import com.github.yohannestz.satori.data.model.PrintType
 import com.github.yohannestz.satori.data.model.volume.SearchHistory
 import com.github.yohannestz.satori.data.repository.BookRepository
+import com.github.yohannestz.satori.data.repository.PreferencesRepository
 import com.github.yohannestz.satori.data.repository.SearchHistoryRepository
 import com.github.yohannestz.satori.ui.base.viewmodel.BaseViewModel
 import com.github.yohannestz.satori.utils.Extensions.addUniqueItems
@@ -12,11 +15,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SearchViewModel(
+    private val defaultPreferencesRepository: PreferencesRepository,
     private val bookRepository: BookRepository,
     private val searchHistoryRepository: SearchHistoryRepository
 ): BaseViewModel<SearchUiState>(), SearchEvent {
@@ -71,7 +76,9 @@ class SearchViewModel(
                             query = uiState.query,
                             startIndex = uiState.nextPage ?: 0,
                             maxResults = 10,
-                            orderBy = OrderBy.RELEVANCE.value
+                            orderBy = OrderBy.RELEVANCE.value,
+                            printType = defaultPreferencesRepository.defaultPrintType.first().value,
+                            filter = if (defaultPreferencesRepository.onlyShowFreeContent.first()) Filter.FULL.value else Filter.EMPTY.value
                         )
 
                         if (result.isSuccess) {

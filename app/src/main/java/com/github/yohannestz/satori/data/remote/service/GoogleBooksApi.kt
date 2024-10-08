@@ -13,7 +13,9 @@ class GoogleBooksApi(private val client: HttpClient) {
         query: String,
         startIndex: Int,
         maxResults: Int,
-        orderBy: String = "relevance"
+        orderBy: String = "relevance",
+        printType: String? = null,
+        filter: String? = null,
     ): Result<Volume> {
         return try {
             val response: Volume = client.get("/books/v1/volumes") {
@@ -21,6 +23,8 @@ class GoogleBooksApi(private val client: HttpClient) {
                 parameter("orderBy", orderBy)
                 parameter("startIndex", startIndex)
                 parameter("maxResults", maxResults)
+                printType?.let { parameter("printType", it) }
+                filter?.let { parameter("filter", it) }
             }.body()
 
             Result.success(response)
@@ -42,7 +46,9 @@ class GoogleBooksApi(private val client: HttpClient) {
         category: String,
         startIndex: Int,
         maxResults: Int,
-        orderBy: String = "relevance"
+        orderBy: String = "relevance",
+        printType: String? = null,
+        filter: String? = null,
     ): Result<Volume> {
         return try {
             val volumes: Volume = client.get("/books/v1/volumes") {
@@ -50,6 +56,8 @@ class GoogleBooksApi(private val client: HttpClient) {
                 parameter("orderBy", orderBy)
                 parameter("startIndex", startIndex)
                 parameter("maxResults", maxResults)
+                printType?.let { parameter("printType", it) }
+                filter?.let { parameter("filter", it) }
             }.body()
 
             Result.success(volumes)
