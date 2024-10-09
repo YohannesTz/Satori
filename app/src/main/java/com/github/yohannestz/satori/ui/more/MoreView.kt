@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
@@ -80,12 +81,12 @@ private fun MoreViewContent (
             .padding(padding)
     ) {
         Icon(
-            painter = painterResource(R.drawable.ic_satori_launcher_foreground),
+            painter = painterResource(R.drawable.ic_satori_launcher),
             contentDescription = stringResource(R.string.app_name),
             modifier = Modifier
                 .padding(vertical = 30.dp)
                 .fillMaxWidth()
-                .height(60.dp),
+                .size(120.dp),
             tint = MaterialTheme.colorScheme.onSurface
         )
 

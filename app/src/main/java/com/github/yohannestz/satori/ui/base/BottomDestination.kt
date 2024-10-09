@@ -46,7 +46,7 @@ sealed class BottomDestination(
     data object More : BottomDestination(
         value = "settings",
         route = Route.Tab.More,
-        title = R.string.title_settings,
+        title = R.string.title_more,
         icon = R.drawable.ic_round_more_horiz_24,
         iconSelected = R.drawable.ic_round_more_horiz_24
     )

@@ -40,6 +40,7 @@ sealed interface Route {
     data class VolumeDetail(val volumeId: String) : Route {
         companion object {
             const val BASE_ROUTE = VOLUME_DETAIL
+            const val DEEPLINK_ROUTE = "https://play.google.com/store/books/details?id={id}"
             fun withArgs(volumeId: String) = "$BASE_ROUTE/$volumeId"
         }
     }

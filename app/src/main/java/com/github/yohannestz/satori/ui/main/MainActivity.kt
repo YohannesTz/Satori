@@ -53,6 +53,8 @@ import kotlinx.coroutines.runBlocking
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.annotation.KoinExperimentalAPI
+import android.content.Intent
+import com.github.yohannestz.satori.ui.base.navigation.Route
 
 class MainActivity : ComponentActivity() {
 
@@ -67,6 +69,8 @@ class MainActivity : ComponentActivity() {
         val lastTabOpened = findLastTabOpened()
         val initialTheme = runBlocking { viewModel.theme.first() }
         val initialUseBlackColors = runBlocking { viewModel.useBlackColors.first() }
+
+        val volumeId = findVolumeIdFromIntent()
 
         setContent {
             KoinAndroidContext {
@@ -127,8 +131,27 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
+
+                LaunchedEffect(volumeId) {
+                    if (volumeId != null) {
+                        navActionManager.navigateTo(
+                            Route.VolumeDetail(volumeId)
+                        )
+                    }
+                }
             }
         }
+    }
+
+    private fun findVolumeIdFromIntent(): String? {
+        if (intent.action == Intent.ACTION_VIEW && intent.data != null) {
+            val uri = intent.data
+            if (uri?.host == "play.google.com") {
+                val bookId = uri.getQueryParameter("id")
+                if (bookId != null) return bookId
+            }
+        }
+        return null
     }
 
     private fun findLastTabOpened(): Int {

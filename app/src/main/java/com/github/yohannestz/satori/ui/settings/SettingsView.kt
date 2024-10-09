@@ -1,5 +1,6 @@
 package com.github.yohannestz.satori.ui.settings
 
+import android.os.Build
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
@@ -17,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -29,8 +31,10 @@ import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
 import com.github.yohannestz.satori.ui.composables.BackIconButton
 import com.github.yohannestz.satori.ui.composables.DefaultScaffoldWithMediumTopAppBar
 import com.github.yohannestz.satori.ui.composables.preferences.ListPreferenceView
+import com.github.yohannestz.satori.ui.composables.preferences.PlainPreferenceView
 import com.github.yohannestz.satori.ui.composables.preferences.SwitchPreferenceView
 import com.github.yohannestz.satori.ui.settings.composables.SettingsTitle
+import com.github.yohannestz.satori.utils.Extensions.openByDefaultSettings
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -54,6 +58,7 @@ private fun SettingsViewContent(
     event: SettingsEvent,
     navActionManager: NavActionManager
 ) {
+    val context = LocalContext.current
     val topAppBarScrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(
         rememberTopAppBarState()
     )
@@ -123,6 +128,16 @@ private fun SettingsViewContent(
                 icon = if (uiState.viewMode == ViewMode.LIST) R.drawable.ic_round_view_list_24 else R.drawable.ic_round_grid_view_24,
                 onValueChange = event::onViewModeChanged
             )
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                PlainPreferenceView(
+                    title = stringResource(R.string.open_google_books_links),
+                    icon = R.drawable.ic_open_in_browser,
+                    onClick = {
+                        context.openByDefaultSettings()
+                    }
+                )
+            }
 
             SwitchPreferenceView(
                 title = stringResource(R.string.only_show_free),

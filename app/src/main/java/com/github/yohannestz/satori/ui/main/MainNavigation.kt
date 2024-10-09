@@ -18,6 +18,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.github.yohannestz.satori.data.model.VolumeCategory
 import com.github.yohannestz.satori.ui.about.AboutView
 import com.github.yohannestz.satori.ui.base.BottomDestination
@@ -130,7 +131,12 @@ fun MainNavigation(
 
         composable(
             route = "${Route.VolumeDetail.BASE_ROUTE}/{$MEDIA_DETAIL_ID}",
-            arguments = listOf(navArgument(MEDIA_DETAIL_ID) { type = NavType.StringType })
+            arguments = listOf(navArgument(MEDIA_DETAIL_ID) { type = NavType.StringType }),
+            deepLinks = listOf(
+                navDeepLink {
+                    uriPattern = Route.VolumeDetail.DEEPLINK_ROUTE
+                }
+            )
         ) { backStackEntry ->
             val volumeId = backStackEntry.arguments?.getString(MEDIA_DETAIL_ID) ?: ""
             val viewModel: VolumeDetailViewModel = koinViewModel {

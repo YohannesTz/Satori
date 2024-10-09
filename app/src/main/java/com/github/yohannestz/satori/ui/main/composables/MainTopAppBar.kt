@@ -46,7 +46,7 @@ fun MainTopAppBar(
                 .statusBarsPadding()
                 .fillMaxWidth()
                 .height(56.dp)
-                .padding(start = 16.dp, end = 16.dp, bottom = 4.dp),
+                .padding(start = 16.dp, end = 16.dp, bottom = 4.dp, top = 4.dp),
             shape = RoundedCornerShape(50),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
