@@ -70,8 +70,6 @@ class MainActivity : ComponentActivity() {
         val initialTheme = runBlocking { viewModel.theme.first() }
         val initialUseBlackColors = runBlocking { viewModel.useBlackColors.first() }
 
-        val volumeId = findVolumeIdFromIntent()
-
         setContent {
             KoinAndroidContext {
                 val theme by viewModel.theme.collectAsStateWithLifecycle(initialValue = initialTheme)
@@ -131,27 +129,8 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 }
-
-                LaunchedEffect(volumeId) {
-                    if (volumeId != null) {
-                        navActionManager.navigateTo(
-                            Route.VolumeDetail(volumeId)
-                        )
-                    }
-                }
             }
         }
-    }
-
-    private fun findVolumeIdFromIntent(): String? {
-        if (intent.action == Intent.ACTION_VIEW && intent.data != null) {
-            val uri = intent.data
-            if (uri?.host == "play.google.com") {
-                val bookId = uri.getQueryParameter("id")
-                if (bookId != null) return bookId
-            }
-        }
-        return null
     }
 
     private fun findLastTabOpened(): Int {
