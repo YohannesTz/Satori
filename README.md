@@ -90,9 +90,3 @@ The app follows MVVM (Model-View-ViewModel) architecture:
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more information.
-  
----  
-
-Thank you for using **Satori**! I hope it helps you find and explore many books.
-
-Satori - Enlightenment through reading 📚.
