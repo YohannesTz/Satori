@@ -53,7 +53,6 @@ fun BookMarksListItem(
 
             Column(
                 modifier = Modifier.heightIn(min = MEDIA_POSTER_SMALL_HEIGHT.dp),
-                verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
                     text = if (item.authors != null) item.authors.split(",")
