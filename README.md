@@ -8,7 +8,6 @@ Welcome to **Satori**, an app to explore and discover books using the Google Boo
 - **Search for Books**: Find books by title, author, or genre.
 - **View Book Details**: Get detailed information about books including title, author, description, and cover image.
 - **Favorite Books**: Save your favorite books for later.
-- **Offline Support**: Access your saved books even when offline using Room database.
 - **Smooth UI**: Built with modern Jetpack Compose to ensure a smooth user experience.
 
 ## Tech Stack
