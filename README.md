@@ -1,7 +1,23 @@
+<p align="center">
+   <img src="/screenshots/banner.png" alt="Satori banner">
+    <h2 align="center">Satori</h2>
+</p>
 
-# Satori - Enlighten Your Reading
+Welcome to Satori, an app to explore and discover books using the Google Books API. "Satori" means "enlightenment" in Japanese, and the app aims to bring knowledge and light through books.
 
-Welcome to **Satori**, an app to explore and discover books using the Google Books API. "Satori" means "enlightenment" in Japanese, and the app aims to bring knowledge and light through books.
+## Download
+
+You can download the latest release from [here](https://github.com/yohannesTz/satori/releases).
+
+## Screenshots
+
+<p align="center">
+    <img src="/screenshots/1.png" width="30%" height="30%" alt="screenshot">
+    <img src="/screenshots/2.png" width="30%" height="30%" alt="screenshot">
+    <img src="/screenshots/3.png" width="30%" height="30%" alt="screenshot">
+    <img src="/screenshots/4.png" width="30%" height="30%" alt="screenshot">
+    <img src="/screenshots/5.png" width="30%" height="30%" alt="screenshot">
+</p>
 
 ## Features
 
@@ -69,16 +85,6 @@ The app follows MVVM (Model-View-ViewModel) architecture:
 - **Model**: Represents the data layer, includes the Room database, repositories for fetching data from Google Books API.
 - **ViewModel**: Handles all the business logic and communicates with the Model to get the necessary data.
 - **View (Compose)**: Displays data on the screen and listens to changes from the ViewModel.
-
-## Screenshots
-
-<p align="center">
-    <img src="/screenshots/1.png" width="30%" height="30%" alt="screenshot">
-    <img src="/screenshots/2.png" width="30%" height="30%" alt="screenshot">
-    <img src="/screenshots/3.png" width="30%" height="30%" alt="screenshot">
-    <img src="/screenshots/4.png" width="30%" height="30%" alt="screenshot">
-    <img src="/screenshots/5.png" width="30%" height="30%" alt="screenshot">
-</p>
 
 
 ## License
