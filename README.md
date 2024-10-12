@@ -89,4 +89,4 @@ The app follows MVVM (Model-View-ViewModel) architecture:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more information.
+See the [LICENSE](./LICENSE) file for more information.
