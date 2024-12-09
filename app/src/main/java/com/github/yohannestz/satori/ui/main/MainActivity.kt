@@ -7,10 +7,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -53,8 +55,6 @@ import kotlinx.coroutines.runBlocking
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.annotation.KoinExperimentalAPI
-import android.content.Intent
-import com.github.yohannestz.satori.ui.base.navigation.Route
 
 class MainActivity : ComponentActivity() {
 
@@ -85,6 +85,7 @@ class MainActivity : ComponentActivity() {
 
                 val windowSizeClass = calculateWindowSizeClass(this)
                 val isCompactScreen = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
+                val windowWidthSizeClassType = windowSizeClass.widthSizeClass
 
                 SatoriTheme(
                     darkTheme = isDark,
@@ -96,7 +97,7 @@ class MainActivity : ComponentActivity() {
                         color = backgroundColor
                     ) {
                         MainView(
-                            isCompactScreen = isCompactScreen,
+                            windowWidthSizeClass = windowWidthSizeClassType,
                             navController = navController,
                             navActionManager = navActionManager,
                             lastTabOpened = lastTabOpened,
@@ -150,7 +151,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainView(
-    isCompactScreen: Boolean,
+    windowWidthSizeClass: WindowWidthSizeClass,
     navController: NavHostController,
     navActionManager: NavActionManager,
     lastTabOpened: Int,
@@ -172,7 +173,7 @@ fun MainView(
 
     Scaffold(
         topBar = {
-            if (isCompactScreen) {
+            if (windowWidthSizeClass == WindowWidthSizeClass.Compact) {
                 MainTopAppBar(
                     isVisible = (isBottomDestination && !isTopAppBarDisallowed),
                     navController = navController,
@@ -184,7 +185,7 @@ fun MainView(
             }
         },
         bottomBar = {
-            if (isCompactScreen) {
+            if (windowWidthSizeClass == WindowWidthSizeClass.Compact) {
                 MainBottomNavBar(
                     navController = navController,
                     navBackStackEntry = navBackStackEntry,
@@ -195,23 +196,29 @@ fun MainView(
             }
         }
     ) { padding ->
-        if (!isCompactScreen) {
-            MainNavigationRail(
-                navController = navController,
-                onItemSelected = saveLastTab,
-                modifier = Modifier.padding(padding)
-            )
-            MainNavigation(
-                navController = navController,
-                navActionManager = navActionManager,
-                lastTabOpened = lastTabOpened,
-                isCompactScreen = false,
-                modifier = Modifier,
-                padding = padding,
-                topBarHeightPx = topBarHeightPx,
-                topBarOffsetY = topBarOffsetY
-            )
-        } else {
+        if (windowWidthSizeClass == WindowWidthSizeClass.Medium) {
+            Row(
+                modifier = Modifier
+                    .statusBarsPadding()
+                    .padding(padding)
+            ) {
+                MainNavigationRail(
+                    navController = navController,
+                    onItemSelected = saveLastTab,
+                    modifier = Modifier.padding(padding)
+                )
+                MainNavigation(
+                    navController = navController,
+                    navActionManager = navActionManager,
+                    lastTabOpened = lastTabOpened,
+                    isCompactScreen = false,
+                    modifier = Modifier,
+                    padding = padding,
+                    topBarHeightPx = topBarHeightPx,
+                    topBarOffsetY = topBarOffsetY
+                )
+            }
+        } else if (windowWidthSizeClass == WindowWidthSizeClass.Compact) {
             LaunchedEffect(padding) {
                 topBarHeightPx = with(density) { padding.calculateTopPadding().toPx() }
             }
@@ -229,6 +236,29 @@ fun MainView(
                 topBarHeightPx = topBarHeightPx,
                 topBarOffsetY = topBarOffsetY,
             )
+        } else {
+            Row(
+                modifier = Modifier
+                    .statusBarsPadding()
+                    .padding(padding)
+            ) {
+                MainNavigationRail(
+                    navController = navController,
+                    onItemSelected = saveLastTab,
+                    navRailExpanded = true,
+                    modifier = Modifier.padding(padding)
+                )
+                MainNavigation(
+                    navController = navController,
+                    navActionManager = navActionManager,
+                    lastTabOpened = lastTabOpened,
+                    isCompactScreen = false,
+                    modifier = Modifier,
+                    padding = padding,
+                    topBarHeightPx = topBarHeightPx,
+                    topBarOffsetY = topBarOffsetY
+                )
+            }
         }
     }
 }
