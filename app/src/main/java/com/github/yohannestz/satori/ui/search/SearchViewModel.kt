@@ -3,7 +3,6 @@ package com.github.yohannestz.satori.ui.search
 import androidx.lifecycle.viewModelScope
 import com.github.yohannestz.satori.data.model.Filter
 import com.github.yohannestz.satori.data.model.OrderBy
-import com.github.yohannestz.satori.data.model.PrintType
 import com.github.yohannestz.satori.data.model.volume.SearchHistory
 import com.github.yohannestz.satori.data.repository.BookRepository
 import com.github.yohannestz.satori.data.repository.PreferencesRepository

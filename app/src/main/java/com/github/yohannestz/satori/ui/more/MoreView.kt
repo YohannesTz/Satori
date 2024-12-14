@@ -2,18 +2,16 @@ package com.github.yohannestz.satori.ui.more
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -80,14 +78,13 @@ private fun MoreViewContent (
             .verticalScroll(scrollState)
             .padding(padding)
     ) {
-        Icon(
+        Image(
             painter = painterResource(R.drawable.ic_satori_launcher),
             contentDescription = stringResource(R.string.app_name),
             modifier = Modifier
                 .padding(vertical = 30.dp)
                 .fillMaxWidth()
-                .size(120.dp),
-            tint = MaterialTheme.colorScheme.onSurface
+                .size(120.dp)
         )
 
         HorizontalDivider()
