@@ -46,6 +46,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeView(
+    isCompactScreen: Boolean,
     navActionManager: NavActionManager,
     topBarHeightPx: Float,
     topBarOffsetY: Animatable<Float, AnimationVector1D>,
@@ -57,6 +58,7 @@ fun HomeView(
     HomeViewContent(
         uiState = uiState,
         event = viewModel,
+        isCompactScreen = isCompactScreen,
         navActionManager = navActionManager,
         topBarHeightPx = topBarHeightPx,
         topBarOffsetY = topBarOffsetY,
@@ -68,6 +70,7 @@ fun HomeView(
 private fun HomeViewContent(
     uiState: HomeUiState,
     event: HomeEvent?,
+    isCompactScreen: Boolean,
     navActionManager: NavActionManager,
     topBarHeightPx: Float,
     topBarOffsetY: Animatable<Float, AnimationVector1D> = Animatable(0f),
@@ -121,6 +124,17 @@ private fun HomeViewContent(
                     navActionManager.navigateTo(Route.VolumeList(VolumeCategory.BUSINESS_ECONOMICS))
                 }
             )
+
+            if (!isCompactScreen) {
+                CategoriesCard(
+                    text = stringResource(R.string.autobiography),
+                    icon = R.drawable.ic_book_spark_4,
+                    modifier = Modifier.weight(1f),
+                    onClick = dropUnlessResumed {
+                        navActionManager.navigateTo(Route.VolumeList(VolumeCategory.PHILOSOPHY))
+                    }
+                )
+            }
         }
 
         Row(
@@ -143,6 +157,17 @@ private fun HomeViewContent(
                     navActionManager.navigateTo(Route.VolumeList(VolumeCategory.COMPUTER_TECHNOLOGY))
                 }
             )
+
+            if (!isCompactScreen) {
+                CategoriesCard(
+                    text = stringResource(R.string.history),
+                    icon = R.drawable.ic_book_spark_4,
+                    modifier = Modifier.weight(1f),
+                    onClick = dropUnlessResumed {
+                        navActionManager.navigateTo(Route.VolumeList(VolumeCategory.BUSINESS_ECONOMICS))
+                    }
+                )
+            }
         }
 
         HorizontalListHeader(
@@ -352,7 +377,8 @@ fun HomeScreenPreview() {
                 uiState = HomeUiState(),
                 event = null,
                 navActionManager = NavActionManager.rememberNavActionManager(),
-                topBarHeightPx = 0f
+                topBarHeightPx = 0f,
+                isCompactScreen = false
             )
         }
     }

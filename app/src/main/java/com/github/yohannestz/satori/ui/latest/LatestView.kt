@@ -207,9 +207,7 @@ private fun LatestViewContent(
                     item(contentType = { 0 }) {
                         if (uiState.canLoadMore) {
                             Box(modifier = Modifier.align(Alignment.Center)) {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.align(Alignment.Center)
-                                )
+                                BaseListItemPlaceHolder()
                             }
                             LaunchedEffect(true) {
                                 event.loadMore()

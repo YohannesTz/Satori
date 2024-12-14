@@ -198,9 +198,7 @@ private fun VolumeListContent(
                     item(contentType = { 0 }) {
                         if (uiState.canLoadMore) {
                             Box(modifier = Modifier.align(Alignment.Center)) {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.align(Alignment.Center)
-                                )
+                                VolumeListGridItemPlaceHolder()
                             }
                             LaunchedEffect(true) {
                                 event?.loadMore()

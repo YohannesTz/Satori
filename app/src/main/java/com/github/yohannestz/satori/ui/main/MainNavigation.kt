@@ -83,6 +83,7 @@ fun MainNavigation(
             popExitTransition = { fadeOut() },
         ) {
             HomeView(
+                isCompactScreen = isCompactScreen,
                 navActionManager = navActionManager,
                 padding = padding,
                 topBarHeightPx = topBarHeightPx,

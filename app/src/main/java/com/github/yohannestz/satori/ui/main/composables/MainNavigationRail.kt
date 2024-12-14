@@ -75,7 +75,6 @@ fun MainNavigationRail(
                         Text(
                             text = stringResource(R.string.search),
                             maxLines = 1,
-                            style = MaterialTheme.typography.labelMedium
                         )
                     },
                 )
@@ -124,7 +123,7 @@ fun MainNavigationRail(
                             }
                         },
                         icon = { dest.Icon(selected = isSelected) },
-                        label = { Text(text = stringResource(dest.title)) }
+                        label = { Text(text = stringResource(dest.title), maxLines = 1) }
                     )
                 } else {
                     NavigationDrawerItem(
@@ -140,7 +139,7 @@ fun MainNavigationRail(
                             }
                         },
                         icon = { dest.Icon(selected = isSelected) },
-                        label = { Text(text = stringResource(dest.title)) },
+                        label = { Text(text = stringResource(dest.title), maxLines = 1) },
                         modifier = Modifier
                             .padding(NavigationDrawerItemDefaults.ItemPadding)
                     )

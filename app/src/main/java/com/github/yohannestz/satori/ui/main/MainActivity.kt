@@ -196,68 +196,74 @@ fun MainView(
             }
         }
     ) { padding ->
-        if (windowWidthSizeClass == WindowWidthSizeClass.Medium) {
-            Row(
-                modifier = Modifier
-                    .statusBarsPadding()
-                    .padding(padding)
-            ) {
-                MainNavigationRail(
-                    navController = navController,
-                    onItemSelected = saveLastTab,
-                    modifier = Modifier.padding(padding)
-                )
-                MainNavigation(
-                    navController = navController,
-                    navActionManager = navActionManager,
-                    lastTabOpened = lastTabOpened,
-                    isCompactScreen = false,
-                    modifier = Modifier,
-                    padding = padding,
-                    topBarHeightPx = topBarHeightPx,
-                    topBarOffsetY = topBarOffsetY
-                )
-            }
-        } else if (windowWidthSizeClass == WindowWidthSizeClass.Compact) {
-            LaunchedEffect(padding) {
-                topBarHeightPx = with(density) { padding.calculateTopPadding().toPx() }
+        when (windowWidthSizeClass) {
+            WindowWidthSizeClass.Medium -> {
+                Row(
+                    modifier = Modifier
+                        .statusBarsPadding()
+                        .padding(padding)
+                ) {
+                    MainNavigationRail(
+                        navController = navController,
+                        onItemSelected = saveLastTab,
+                        modifier = Modifier.padding(padding)
+                    )
+                    MainNavigation(
+                        navController = navController,
+                        navActionManager = navActionManager,
+                        lastTabOpened = lastTabOpened,
+                        isCompactScreen = false,
+                        modifier = Modifier,
+                        padding = padding,
+                        topBarHeightPx = topBarHeightPx,
+                        topBarOffsetY = topBarOffsetY
+                    )
+                }
             }
 
-            MainNavigation(
-                navController = navController,
-                navActionManager = navActionManager,
-                lastTabOpened = lastTabOpened,
-                isCompactScreen = true,
-                modifier = Modifier.padding(
-                    start = padding.calculateStartPadding(LocalLayoutDirection.current),
-                    end = padding.calculateEndPadding(LocalLayoutDirection.current),
-                ),
-                padding = padding,
-                topBarHeightPx = topBarHeightPx,
-                topBarOffsetY = topBarOffsetY,
-            )
-        } else {
-            Row(
-                modifier = Modifier
-                    .statusBarsPadding()
-                    .padding(padding)
-            ) {
-                MainNavigationRail(
-                    navController = navController,
-                    onItemSelected = saveLastTab,
-                    navRailExpanded = true,
-                    modifier = Modifier.padding(padding)
-                )
+            WindowWidthSizeClass.Compact -> {
+                LaunchedEffect(padding) {
+                    topBarHeightPx = with(density) { padding.calculateTopPadding().toPx() }
+                }
+
                 MainNavigation(
                     navController = navController,
                     navActionManager = navActionManager,
                     lastTabOpened = lastTabOpened,
-                    isCompactScreen = false,
-                    modifier = Modifier,
+                    isCompactScreen = true,
+                    modifier = Modifier.padding(
+                        start = padding.calculateStartPadding(LocalLayoutDirection.current),
+                        end = padding.calculateEndPadding(LocalLayoutDirection.current),
+                    ),
                     padding = padding,
                     topBarHeightPx = topBarHeightPx,
-                    topBarOffsetY = topBarOffsetY
+                    topBarOffsetY = topBarOffsetY,
                 )
+            }
+
+            else -> {
+                Row(
+                    modifier = Modifier
+                        .statusBarsPadding()
+                        .padding(padding)
+                ) {
+                    MainNavigationRail(
+                        navController = navController,
+                        onItemSelected = saveLastTab,
+                        navRailExpanded = true,
+                        modifier = Modifier.padding(padding)
+                    )
+                    MainNavigation(
+                        navController = navController,
+                        navActionManager = navActionManager,
+                        lastTabOpened = lastTabOpened,
+                        isCompactScreen = false,
+                        modifier = Modifier,
+                        padding = padding,
+                        topBarHeightPx = topBarHeightPx,
+                        topBarOffsetY = topBarOffsetY
+                    )
+                }
             }
         }
     }
