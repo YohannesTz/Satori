@@ -1,9 +1,9 @@
-package com.github.yohannestz.satori.ui.bookmarks
+package com.github.yohannestz.satori.ui.library
 
 import com.github.yohannestz.satori.data.model.volume.BookMarkItem
 import com.github.yohannestz.satori.ui.base.event.PagedUiEvent
 
-interface BookMarksEvent: PagedUiEvent {
+interface LocalLibraryEvent: PagedUiEvent {
     fun refreshList()
     fun onDeleteFromBookMarksClicked(item: BookMarkItem)
 }

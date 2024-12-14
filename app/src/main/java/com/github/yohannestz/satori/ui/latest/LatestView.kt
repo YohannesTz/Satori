@@ -192,7 +192,7 @@ private fun LatestViewContent(
                         LatestListItem(
                             item = item,
                             onClick = {
-                                navActionManager.navigateTo(Route.VolumeDetail(""))
+                                navActionManager.navigateToDetail(item.id)
                             }
                         )
 

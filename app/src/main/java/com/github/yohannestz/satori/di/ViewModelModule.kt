@@ -1,7 +1,7 @@
 package com.github.yohannestz.satori.di
 
 import com.github.yohannestz.satori.ui.about.AboutViewModel
-import com.github.yohannestz.satori.ui.bookmarks.BookMarksViewModel
+import com.github.yohannestz.satori.ui.library.LocalLibraryViewModel
 import com.github.yohannestz.satori.ui.details.VolumeDetailViewModel
 import com.github.yohannestz.satori.ui.home.HomeViewModel
 import com.github.yohannestz.satori.ui.latest.LatestViewModel
@@ -19,7 +19,7 @@ val viewModelModule = module {
     viewModelOf(::VolumeDetailViewModel)
     viewModelOf(::VolumeListViewModel)
     viewModelOf(::SearchViewModel)
-    viewModelOf(::BookMarksViewModel)
+    viewModelOf(::LocalLibraryViewModel)
     viewModelOf(::SettingsViewModel)
     viewModelOf(::AboutViewModel)
 }

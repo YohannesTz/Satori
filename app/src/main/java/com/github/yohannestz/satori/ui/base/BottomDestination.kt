@@ -35,10 +35,10 @@ sealed class BottomDestination(
         iconSelected = R.drawable.ic_round_fire_24
     )
 
-    data object Bookmarks : BottomDestination(
-        value = "bookmarks",
-        route = Route.Tab.Bookmarks,
-        title = R.string.title_bookmarks,
+    data object LocalLibrary : BottomDestination(
+        value = "localLibrary",
+        route = Route.Tab.LocalLibrary,
+        title = R.string.local_library,
         icon = R.drawable.ic_outline_collections_bookmark_24,
         iconSelected = R.drawable.ic_round_collections_bookmark_24
     )
@@ -52,14 +52,14 @@ sealed class BottomDestination(
     )
 
     companion object {
-        val values = listOf(Home, Latest, Bookmarks, More)
-        val railValues = listOf(Home, Latest, Bookmarks, More)
-        private val topAppBarDisallowed = listOf(Bookmarks, More)
+        val values = listOf(Home, Latest, LocalLibrary, More)
+        val railValues = listOf(Home, Latest, LocalLibrary, More)
+        private val topAppBarDisallowed = listOf(LocalLibrary, More)
 
         fun String.toBottomDestinationIndex() = when (this) {
             Home.value -> 0
             Latest.value -> 1
-            Bookmarks.value -> 2
+            LocalLibrary.value -> 2
             More.value -> 3
             else -> null
         }

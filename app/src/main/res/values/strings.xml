@@ -100,4 +100,6 @@
     <string name="github_issues">Github issues</string>
     <string name="title_more">More</string>
     <string name="open_google_books_links">"Open google books links in app "</string>
+    <string name="local_library">Local library</string>
+    <string name="downloads">Downloads</string>
 </resources>

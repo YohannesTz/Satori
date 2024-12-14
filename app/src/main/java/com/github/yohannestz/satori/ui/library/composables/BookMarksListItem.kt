@@ -1,4 +1,4 @@
-package com.github.yohannestz.satori.ui.bookmarks.composables
+package com.github.yohannestz.satori.ui.library.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column

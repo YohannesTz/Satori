@@ -1,4 +1,4 @@
-package com.github.yohannestz.satori.ui.bookmarks
+package com.github.yohannestz.satori.ui.library
 
 import androidx.compose.runtime.Stable
 import com.github.yohannestz.satori.data.model.ViewMode
@@ -6,7 +6,7 @@ import com.github.yohannestz.satori.data.model.volume.BookMarkItem
 import com.github.yohannestz.satori.ui.base.state.PagedUiState
 
 @Stable
-data class BookMarksUiState(
+data class LocalLibraryUiState(
     val bookMarks: List<BookMarkItem> = emptyList(),
     val viewMode: ViewMode = ViewMode.LIST,
     val errorMessage: String? = null,

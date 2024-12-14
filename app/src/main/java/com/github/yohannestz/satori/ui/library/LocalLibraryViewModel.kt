@@ -1,4 +1,4 @@
-package com.github.yohannestz.satori.ui.bookmarks
+package com.github.yohannestz.satori.ui.library
 
 import androidx.lifecycle.viewModelScope
 import com.github.yohannestz.satori.data.model.volume.BookMarkItem
@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class BookMarksViewModel(
+class LocalLibraryViewModel(
     private val bookMarkRepository: BookMarkRepository
-) : BaseViewModel<BookMarksUiState>(), BookMarksEvent {
-    override val mutableUiState: MutableStateFlow<BookMarksUiState> = MutableStateFlow(
-        BookMarksUiState()
+) : BaseViewModel<LocalLibraryUiState>(), LocalLibraryEvent {
+    override val mutableUiState: MutableStateFlow<LocalLibraryUiState> = MutableStateFlow(
+        LocalLibraryUiState()
     )
 
     override fun onDeleteFromBookMarksClicked(item: BookMarkItem) {
@@ -39,7 +39,7 @@ class BookMarksViewModel(
         viewModelScope.launch {
             bookMarkRepository.getBookMarkedItems().collect { items ->
                 mutableUiState.update {
-                    it.copy(bookMarks = items)
+                    it.copy(bookMarks = items, loadMore = false)
                 }
             }
         }

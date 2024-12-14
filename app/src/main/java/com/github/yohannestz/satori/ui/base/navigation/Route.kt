@@ -13,7 +13,7 @@ sealed interface Route {
         data object Latest : Tab
 
         @Serializable
-        data object Bookmarks : Tab
+        data object LocalLibrary : Tab
 
         @Serializable
         data object More : Tab
