@@ -131,7 +131,7 @@ private fun HomeViewContent(
                     icon = R.drawable.ic_book_spark_4,
                     modifier = Modifier.weight(1f),
                     onClick = dropUnlessResumed {
-                        navActionManager.navigateTo(Route.VolumeList(VolumeCategory.PHILOSOPHY))
+                        navActionManager.navigateTo(Route.VolumeList(VolumeCategory.AUTOBIOGRAPHY))
                     }
                 )
             }
@@ -164,7 +164,7 @@ private fun HomeViewContent(
                     icon = R.drawable.ic_book_spark_4,
                     modifier = Modifier.weight(1f),
                     onClick = dropUnlessResumed {
-                        navActionManager.navigateTo(Route.VolumeList(VolumeCategory.BUSINESS_ECONOMICS))
+                        navActionManager.navigateTo(Route.VolumeList(VolumeCategory.HISTORY))
                     }
                 )
             }
