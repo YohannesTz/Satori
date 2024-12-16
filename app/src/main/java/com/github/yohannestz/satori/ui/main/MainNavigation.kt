@@ -24,11 +24,11 @@ import com.github.yohannestz.satori.ui.about.AboutView
 import com.github.yohannestz.satori.ui.base.BottomDestination
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
 import com.github.yohannestz.satori.ui.base.navigation.Route
-import com.github.yohannestz.satori.ui.library.LocalLibraryView
 import com.github.yohannestz.satori.ui.details.VolumeDetailView
 import com.github.yohannestz.satori.ui.details.VolumeDetailViewModel
 import com.github.yohannestz.satori.ui.home.HomeView
 import com.github.yohannestz.satori.ui.latest.LatestView
+import com.github.yohannestz.satori.ui.library.LocalLibraryView
 import com.github.yohannestz.satori.ui.more.MoreView
 import com.github.yohannestz.satori.ui.search.SearchHostView
 import com.github.yohannestz.satori.ui.settings.SettingsView

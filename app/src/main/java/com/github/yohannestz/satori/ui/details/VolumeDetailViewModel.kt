@@ -1,12 +1,15 @@
 package com.github.yohannestz.satori.ui.details
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.github.yohannestz.satori.data.downloader.FileDownloader
 import com.github.yohannestz.satori.data.local.itembookmarks.toItemEntity
 import com.github.yohannestz.satori.data.model.volume.BookMarkItem
 import com.github.yohannestz.satori.data.model.volume.VolumeDetail
 import com.github.yohannestz.satori.data.repository.BookMarkRepository
 import com.github.yohannestz.satori.data.repository.BookRepository
 import com.github.yohannestz.satori.ui.base.viewmodel.BaseViewModel
+import com.github.yohannestz.satori.utils.Extensions.treatForFileName
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -16,6 +19,7 @@ class VolumeDetailViewModel(
     volumeId: String,
     private val bookMarkRepository: BookMarkRepository,
     private val bookRepository: BookRepository,
+    private val fileDownloader: FileDownloader
 ) : BaseViewModel<VolumeDetailUiState>(), VolumeDetailEvent {
     override val mutableUiState: MutableStateFlow<VolumeDetailUiState> =
         MutableStateFlow(VolumeDetailUiState())
@@ -42,6 +46,34 @@ class VolumeDetailViewModel(
             mutableUiState.update {
                 it.copy(isBookMarked = isBookMarked)
             }
+        }
+    }
+
+    override fun onDownloadPDFClicked(item: VolumeDetail?) {
+        if (item == null) {
+            showMessage("Item was not found")
+            return
+        }
+
+        val downloadUrl = item.accessInfo.pdf.acsTokenLink
+        if (downloadUrl.isNullOrEmpty()) {
+            showMessage("Item is not available")
+            return
+        }
+
+        val secureDownloadUrl = if(downloadUrl.startsWith("http:", ignoreCase = true)) {
+            downloadUrl.replaceFirst("http:", "https:")
+        } else {
+            downloadUrl
+        }
+
+        viewModelScope.launch {
+            fileDownloader.downloadFileWithProgress(secureDownloadUrl, "${item.volumeInfo.title?.treatForFileName()}.pdf")
+                .collect { downloadProgress ->
+                    mutableUiState.update {
+                        it.copy(progress = downloadProgress)
+                    }
+                }
         }
     }
 

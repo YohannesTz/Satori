@@ -35,7 +35,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.yohannestz.satori.data.model.VolumeCategory
 import com.github.yohannestz.satori.ui.base.TabRowItem
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
-import com.github.yohannestz.satori.ui.base.navigation.Route
 import com.github.yohannestz.satori.ui.composables.BaseListItemPlaceHolder
 import com.github.yohannestz.satori.ui.composables.OnBottomReached
 import com.github.yohannestz.satori.ui.composables.TabRowWithPager

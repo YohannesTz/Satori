@@ -41,6 +41,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.toLowerCase
 import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 import androidx.core.text.HtmlCompat
@@ -51,7 +52,10 @@ import io.github.fornewid.placeholder.foundation.PlaceholderHighlight
 import io.github.fornewid.placeholder.material3.fade
 import io.github.fornewid.placeholder.material3.placeholder
 import kotlinx.coroutines.launch
+import java.util.Locale
 import kotlin.math.abs
+import kotlin.math.log10
+import kotlin.math.pow
 
 object Extensions {
     fun String.htmlDecoded() = HtmlCompat.fromHtml(this, HtmlCompat.FROM_HTML_MODE_COMPACT)
@@ -357,4 +361,19 @@ object Extensions {
             val b: Int = (blue * 255).toInt()
             return java.lang.String.format("%02X%02X%02X%02X", a, r, g, b)
         }
+
+    fun Long.toFormattedSize(): String {
+        if (this <= 0) return "0 B"
+        val units = arrayOf("B", "KB", "MB", "GB", "TB", "PB", "EB")
+        val digitGroups = (log10(this.toDouble()) / log10(1024.0)).toInt()
+        val size = this / 1024.0.pow(digitGroups.toDouble())
+        return String.format(Locale.getDefault(), "%.2f %s", size, units[digitGroups])
+    }
+
+    fun String.treatForFileName(): String {
+        return this.trim()
+            .lowercase()
+            .replace(Regex("\\s+"), "-")
+            .replace(Regex("[^a-z0-9\\-_.]"), "")
+    }
 }

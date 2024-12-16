@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -67,9 +68,13 @@ fun TextIconVertical(
     color: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     fontSize: TextUnit = TextUnit.Unspecified,
     isLoading: Boolean = false,
+    onClick: (() -> Unit)? = null
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .then(
+                if (onClick != null) Modifier.clickable { onClick() } else Modifier
+            ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
@@ -85,6 +90,44 @@ fun TextIconVertical(
                 .defaultPlaceholder(visible = isLoading),
             color = color,
             fontSize = fontSize
+        )
+    }
+}
+
+@Composable
+fun SubTextIconVertical(
+    text: String,
+    @DrawableRes icon: Int,
+    modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colorScheme.onSurfaceVariant,
+    fontSize: TextUnit = TextUnit.Unspecified,
+    isLoading: Boolean = false,
+    onClick: (() -> Unit)? = null
+) {
+    Column(
+        modifier = modifier
+            .padding(horizontal = 4.dp)
+            .defaultPlaceholder(visible = isLoading)
+            .then(
+                if (onClick != null) Modifier.clickable { onClick() } else Modifier
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(
+            painter = painterResource(icon),
+            contentDescription = text,
+            modifier = Modifier
+                .size(20.dp),
+            tint = color
+        )
+
+        Text(
+            text = text,
+            color = MaterialTheme.colorScheme.outline,
+            fontSize = 13.sp,
+            textAlign = TextAlign.Center,
+            maxLines = 1,
+            lineHeight = 15.sp
         )
     }
 }

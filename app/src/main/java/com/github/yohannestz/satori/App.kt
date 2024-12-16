@@ -10,6 +10,7 @@ import coil3.memory.MemoryCache
 import coil3.request.crossfade
 import com.github.yohannestz.satori.di.dataStoreModule
 import com.github.yohannestz.satori.di.databaseModule
+import com.github.yohannestz.satori.di.fileDownloaderModule
 import com.github.yohannestz.satori.di.networkModule
 import com.github.yohannestz.satori.di.repositoryModule
 import com.github.yohannestz.satori.di.viewModelModule
@@ -28,7 +29,8 @@ class App : Application(), KoinComponent, SingletonImageLoader.Factory {
                 networkModule,
                 repositoryModule,
                 viewModelModule,
-                dataStoreModule
+                dataStoreModule,
+                fileDownloaderModule
             )
         }
     }

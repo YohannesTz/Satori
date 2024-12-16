@@ -1,6 +1,12 @@
 package com.github.yohannestz.satori.ui.details
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,12 +16,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -44,6 +52,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.yohannestz.satori.R
+import com.github.yohannestz.satori.data.downloader.FileDownloadStatus
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
 import com.github.yohannestz.satori.ui.composables.BackIconButton
 import com.github.yohannestz.satori.ui.composables.InfoTitle
@@ -51,6 +60,7 @@ import com.github.yohannestz.satori.ui.composables.MEDIA_POSTER_BIG_HEIGHT
 import com.github.yohannestz.satori.ui.composables.MEDIA_POSTER_BIG_WIDTH
 import com.github.yohannestz.satori.ui.composables.PosterImage
 import com.github.yohannestz.satori.ui.composables.ShareIconButton
+import com.github.yohannestz.satori.ui.composables.SubTextIconVertical
 import com.github.yohannestz.satori.ui.composables.TextSubtitleVertical
 import com.github.yohannestz.satori.ui.composables.TopBannerView
 import com.github.yohannestz.satori.ui.details.composables.InfoView
@@ -108,6 +118,7 @@ private fun VolumeDetailViewContent(
     }
 
     val context = LocalContext.current
+    //val permissionLauncher = rememberLauncherForActivityResult() { }
 
     Scaffold(
         modifier = Modifier.nestedScroll(topAppBarScrollBehavior.nestedScrollConnection),
@@ -138,38 +149,21 @@ private fun VolumeDetailViewContent(
             )
         },
         floatingActionButton = {
-            if (!uiState.isBookMarked) {
+            if (uiState.volume?.accessInfo?.pdf?.acsTokenLink?.isNotEmpty() == true) {
                 ExtendedFloatingActionButton(
                     onClick = {
-                        event?.onAddToBookMarkClicked(uiState.volume)
+                        event?.onDownloadPDFClicked(item = uiState.volume)
                     },
                     icon = {
                         Icon(
-                            painter = painterResource(R.drawable.ic_outline_collections_bookmark_24),
-                            contentDescription = stringResource(R.string.add_to_bookmark)
+                            painter = painterResource(R.drawable.ic_round_download_for_offline_24),
+                            contentDescription = stringResource(R.string.download_pdf)
                         )
                     },
                     text = {
-                        Text(stringResource(R.string.add_to_bookmark))
+                        Text(stringResource(R.string.download_pdf))
                     },
-                    expanded = !isScrolledDown
-                )
-            } else {
-                ExtendedFloatingActionButton(
-                    onClick = {
-                        event?.onRemoveFromBookMarkClicked(uiState.volume)
-                    },
-                    icon = {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_round_delete_24),
-                            contentDescription = stringResource(R.string.remove_from_bookmark)
-                        )
-                    },
-                    text = {
-                        Text(stringResource(R.string.remove_from_bookmark))
-                    },
-                    expanded = !isScrolledDown,
-                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                    expanded = isScrolledDown
                 )
             }
         }
@@ -275,9 +269,63 @@ private fun VolumeDetailViewContent(
                     subtitle = stringResource(R.string.language),
                     isLoading = false
                 )
+
+                VerticalDivider(
+                    modifier = Modifier
+                        .padding(horizontal = 24.dp)
+                        .height(dividerHeight.dp)
+                )
+
+                SubTextIconVertical(
+                    text = if (uiState.isBookMarked) stringResource(R.string.remove_from_bookmark) else stringResource(
+                        R.string.add_to_bookmark
+                    ),
+                    icon = if (uiState.isBookMarked) R.drawable.ic_star_filled_20 else R.drawable.ic_round_star_outline_20,
+                    onClick = {
+                        if (uiState.isBookMarked) {
+                            event?.onRemoveFromBookMarkClicked(uiState.volume)
+                        } else {
+                            event?.onAddToBookMarkClicked(uiState.volume)
+                        }
+                    }
+                )
             }
 
             Spacer(Modifier.height(16.dp))
+
+            AnimatedVisibility(
+                visible = uiState.progress != null && (uiState.progress.status == FileDownloadStatus.PENDING || uiState.progress.status == FileDownloadStatus.STARTED),
+                enter = expandVertically() + fadeIn(),
+                exit = shrinkVertically() + fadeOut()
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    if (uiState.progress?.status == FileDownloadStatus.PENDING) {
+                        LinearProgressIndicator(
+                            modifier = Modifier.weight(1f)
+                        )
+                    } else {
+                        LinearProgressIndicator(
+                            modifier = Modifier.weight(1f),
+                            progress = {
+                                uiState.progress?.progressInFloat() ?: 0f
+                            },
+                        )
+                    }
+                    Spacer(Modifier.width(16.dp))
+                    Text(
+                        text = if (uiState.progress?.status == FileDownloadStatus.PENDING) stringResource(
+                            R.string.pending
+                        ) else "${uiState.progress?.progressInPercentage()}%"
+                    )
+                }
+            }
+
             Text(
                 text = when {
                     uiState.isLoading -> buildAnnotatedString { append(stringResource(R.string.lorem_ipsun)) }
@@ -369,7 +417,7 @@ private fun VolumeDetailViewContent(
                 title = stringResource(R.string.reading_modes),
                 epubLink = uiState.volume?.accessInfo?.epub?.downloadLink,
                 pdfLink = uiState.volume?.accessInfo?.pdf?.acsTokenLink,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(vertical = 8.dp)
             )
 
             InfoView(
@@ -418,7 +466,6 @@ private fun VolumeDetailViewContent(
                     .padding(bottom = 4.dp, end = 8.dp)
                     .defaultPlaceholder(uiState.isLoading)
             )
-
         }
     }
 }

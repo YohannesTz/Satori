@@ -18,3 +18,5 @@ const val VOLUME_DETAIL = "volumeDetail"
 const val MEDIA_DETAIL_ID = "id"
 
 const val DEFAULT_GRID_SPAN_COUNT = 2
+
+const val SATORI_DOWNLOADS_DIR = "Satori Downloads"

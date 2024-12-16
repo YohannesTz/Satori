@@ -1,6 +1,7 @@
 package com.github.yohannestz.satori.ui.details
 
 import androidx.compose.runtime.Immutable
+import com.github.yohannestz.satori.data.downloader.FileDownloaderProgress
 import com.github.yohannestz.satori.data.model.volume.VolumeDetail
 import com.github.yohannestz.satori.ui.base.state.UiState
 
@@ -8,6 +9,8 @@ import com.github.yohannestz.satori.ui.base.state.UiState
 data class VolumeDetailUiState(
     val volume: VolumeDetail? = null,
     val isBookMarked: Boolean = false,
+    val isDownloading: Boolean = false,
+    val progress: FileDownloaderProgress? = null,
     override val isLoading: Boolean = false,
     override val message: String? = null
 ) : UiState() {

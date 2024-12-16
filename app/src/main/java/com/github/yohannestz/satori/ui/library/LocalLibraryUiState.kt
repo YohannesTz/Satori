@@ -4,6 +4,7 @@ import androidx.compose.runtime.Stable
 import com.github.yohannestz.satori.data.model.ViewMode
 import com.github.yohannestz.satori.data.model.volume.BookMarkItem
 import com.github.yohannestz.satori.ui.base.state.PagedUiState
+import java.io.File
 
 @Stable
 data class LocalLibraryUiState(
@@ -12,6 +13,8 @@ data class LocalLibraryUiState(
     val errorMessage: String? = null,
     val isLoadingMore: Boolean = false,
     val noResult: Boolean = false,
+    val files: List<File> = emptyList(),
+    val permissionsGranted: Boolean = false,
     override val nextPage: Int? = null,
     override val loadMore: Boolean = true,
     override val isLoading: Boolean = false,

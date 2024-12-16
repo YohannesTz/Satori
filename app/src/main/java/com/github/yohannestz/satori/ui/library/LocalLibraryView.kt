@@ -1,5 +1,7 @@
 package com.github.yohannestz.satori.ui.library
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.foundation.layout.Column
@@ -30,12 +32,12 @@ import com.github.yohannestz.satori.R
 import com.github.yohannestz.satori.data.model.LocalLibrary
 import com.github.yohannestz.satori.ui.base.TabRowItem
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
-import com.github.yohannestz.satori.ui.library.composables.BookMarksGridItem
-import com.github.yohannestz.satori.ui.library.composables.BookMarksListItem
 import com.github.yohannestz.satori.ui.composables.BaseListItemPlaceHolder
 import com.github.yohannestz.satori.ui.composables.DefaultTopAppBar
 import com.github.yohannestz.satori.ui.composables.OnBottomReached
 import com.github.yohannestz.satori.ui.composables.TabRowWithPager
+import com.github.yohannestz.satori.ui.library.composables.BookMarksGridItem
+import com.github.yohannestz.satori.ui.library.composables.BookMarksListItem
 import com.github.yohannestz.satori.utils.DEFAULT_GRID_SPAN_COUNT
 import com.github.yohannestz.satori.utils.Extensions.collapsable
 import com.github.yohannestz.satori.utils.Extensions.showToast
@@ -76,7 +78,12 @@ private fun LocalLibraryViewContent(
 ) {
     val context = LocalContext.current
     val pullToRefreshState = rememberPullToRefreshState()
-
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val allGranted = permissions.values.all { it }
+        event?.onPermissionResult(allGranted)
+    }
     val localLibraryTabRowItems = remember {
         LocalLibrary.entries.map {
             TabRowItem(value = it, title = it.label)
@@ -86,6 +93,19 @@ private fun LocalLibraryViewContent(
     LaunchedEffect(uiState.message) {
         if (uiState.message != null) {
             context.showToast(uiState.message)
+        }
+    }
+
+    LaunchedEffect(uiState.permissionsGranted) {
+        if (!uiState.permissionsGranted) {
+            permissionLauncher.launch(
+                arrayOf(
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+            )
+        } else {
+            event?.loadFiles(0)
         }
     }
 
