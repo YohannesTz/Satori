@@ -62,8 +62,14 @@ private fun AboutViewContent(
         ) {
             PlainPreferenceView(
                 title = stringResource(R.string.version),
-                subtitle = "$versionName ($versionCode)",
+                subtitle = versionName,
                 icon = R.drawable.ic_round_info_24,
+                onClick = {}
+            )
+
+            PlainPreferenceView(
+                title = stringResource(R.string.version_code),
+                subtitle = "$versionCode",
                 onClick = {}
             )
 

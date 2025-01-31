@@ -89,7 +89,7 @@
     <string name="about">About</string>
     <string name="version">Version</string>
     <string name="github_repository">Github repository</string>
-    <string name="github_repository_subtitle">\"Star, report issues, contribute, or request new features for this project.\"</string>
+    <string name="github_repository_subtitle">Star, report issues, contribute, or request new features for this project.</string>
     <string name="contributors">CONTRIBUTOR(S)</string>
     <string name="github_repository_releases">Releases</string>
     <string name="github_repository_releases_subtitle">Checkout new features and updates</string>
@@ -100,4 +100,5 @@
     <string name="github_issues">Github issues</string>
     <string name="title_more">More</string>
     <string name="open_google_books_links">"Open google books links in app "</string>
+    <string name="version_code">Version Code</string>
 </resources>
