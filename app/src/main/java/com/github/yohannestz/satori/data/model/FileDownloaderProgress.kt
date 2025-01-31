@@ -1,8 +1,4 @@
-package com.github.yohannestz.satori.data.downloader
-
-enum class FileDownloadStatus {
-    NOT_STARTED, PENDING, STARTED, FAILED, SUCCESSFUL
-}
+package com.github.yohannestz.satori.data.model
 
 data class FileDownloaderProgress(
     val total: Long,

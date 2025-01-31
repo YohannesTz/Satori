@@ -1,6 +1,5 @@
 package com.github.yohannestz.satori.ui.details
 
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.expandVertically
@@ -52,7 +51,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.github.yohannestz.satori.R
-import com.github.yohannestz.satori.data.downloader.FileDownloadStatus
+import com.github.yohannestz.satori.data.model.FileDownloadStatus
 import com.github.yohannestz.satori.ui.base.navigation.NavActionManager
 import com.github.yohannestz.satori.ui.composables.BackIconButton
 import com.github.yohannestz.satori.ui.composables.InfoTitle

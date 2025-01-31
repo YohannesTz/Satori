@@ -1,6 +1,7 @@
 package com.github.yohannestz.satori.data.repository
 
 import android.content.Context
+import android.os.Environment
 import java.io.File
 
 class FilesRepository(
@@ -11,7 +12,7 @@ class FilesRepository(
         page: Int,
         pageSize: Int
     ): Pair<List<File>, Boolean> {
-        val directory = File(context.getExternalFilesDir(null), directoryName)
+        val directory = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), directoryName)
 
         if (!directory.exists()) {
             return Pair(emptyList(), false)
@@ -27,7 +28,6 @@ class FilesRepository(
             .take(pageSize)
 
         val hasMore = allFiles.size > (page + 1) * pageSize
-
         return Pair(pagedFiles, hasMore)
     }
 }

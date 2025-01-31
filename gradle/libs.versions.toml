@@ -15,6 +15,8 @@ koinBom = "3.6.0-wasm-alpha2"
 lifecycleViewmodelCompose = "2.8.6"
 navigationCompose = "2.8.1"
 paletteKtx = "1.0.0"
+pdfbox = "2.0.29"
+pdfViewer = "2.1.1"
 placeholderMaterial3 = "2.0.0"
 room = "2.6.1"
 ksp = "2.0.10-1.0.24"
@@ -61,6 +63,8 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktorVersion" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorVersion" }
 androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
+pdf-viewer = { module = "io.github.afreakyelf:Pdf-Viewer", version.ref = "pdfViewer" }
+pdfbox = { module = "org.apache.pdfbox:pdfbox", version.ref = "pdfbox" }
 placeholder-material3 = { module = "io.github.fornewid:placeholder-material3", version.ref = "placeholderMaterial3" }
 androidx-material3-window-size = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "material3WindowSizeClass" }
 

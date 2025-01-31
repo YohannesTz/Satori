@@ -3,7 +3,8 @@ package com.github.yohannestz.satori.data.downloader
 import android.app.DownloadManager
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
+import com.github.yohannestz.satori.data.model.FileDownloadStatus
+import com.github.yohannestz.satori.data.model.FileDownloaderProgress
 import com.github.yohannestz.satori.utils.SATORI_DOWNLOADS_DIR
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

@@ -1,7 +1,7 @@
 package com.github.yohannestz.satori.ui.details
 
 import androidx.compose.runtime.Immutable
-import com.github.yohannestz.satori.data.downloader.FileDownloaderProgress
+import com.github.yohannestz.satori.data.model.FileDownloaderProgress
 import com.github.yohannestz.satori.data.model.volume.VolumeDetail
 import com.github.yohannestz.satori.ui.base.state.UiState
 

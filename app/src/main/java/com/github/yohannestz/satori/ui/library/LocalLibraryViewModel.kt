@@ -1,10 +1,6 @@
 package com.github.yohannestz.satori.ui.library
 
-import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
 import android.util.Log
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewModelScope
 import com.github.yohannestz.satori.data.model.volume.BookMarkItem
 import com.github.yohannestz.satori.data.repository.BookMarkRepository
@@ -19,7 +15,6 @@ import kotlinx.coroutines.launch
 class LocalLibraryViewModel(
     private val bookMarkRepository: BookMarkRepository,
     private val filesRepository: FilesRepository,
-    private val context: Context
 ) : BaseViewModel<LocalLibraryUiState>(), LocalLibraryEvent {
 
     private var currentPage = 0
@@ -50,22 +45,6 @@ class LocalLibraryViewModel(
         loadFiles(0)
     }
 
-    override fun checkPermissions() {
-        val readPermission = ContextCompat.checkSelfPermission(
-            context, Manifest.permission.READ_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
-
-        val writePermission = ContextCompat.checkSelfPermission(
-            context, Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
-
-        mutableUiState.update {
-            it.copy(
-                permissionsGranted = readPermission && writePermission
-            )
-        }
-    }
-
     override fun loadMore() {
         mutableUiState.value.run {
             if (canLoadMore) {
@@ -79,18 +58,27 @@ class LocalLibraryViewModel(
 
     override fun loadFiles(page: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val (files, hasMore) = filesRepository.getBookFilesFromDirectory(SATORI_DOWNLOADS_DIR, page, pageSize)
-            mutableUiState.update {
-                it.copy(
-                    files = (it.files + files),
-                    loadMore = hasMore,
-                    nextPage = if (hasMore) page + 1 else null,
-                    isLoadingMore = false,
-                    noResult = files.isEmpty()
-                )
+            try {
+                val (files, hasMore) = filesRepository.getBookFilesFromDirectory(
+                    SATORI_DOWNLOADS_DIR, page, pageSize)
+                Log.e("files", "files: ${files.size}")
+                mutableUiState.update {
+                    it.copy(
+                        files = if (page == 0) files else (it.files + files),
+                        loadMore = false,
+                        nextPage = if (hasMore) page + 1 else null,
+                        isLoadingMore = false,
+                        isLoading = false,
+                        noResult = files.isEmpty() && page == 0
+                    )
+                }
+                currentPage = page
+            } catch (e: Exception) {
+                e.printStackTrace()
+                mutableUiState.update {
+                    it.copy(loadMore = false, isLoadingMore = false, isLoading = false)
+                }
             }
-
-            currentPage = page
         }
     }
 
@@ -103,6 +91,6 @@ class LocalLibraryViewModel(
             }
         }
 
-        checkPermissions()
+        loadFiles(0)
     }
 }
