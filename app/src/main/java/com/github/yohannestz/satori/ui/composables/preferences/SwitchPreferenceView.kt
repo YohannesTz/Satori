@@ -59,8 +59,8 @@ fun SwitchPreferenceView(
 
             Column(
                 modifier = if (subtitle != null)
-                    Modifier.padding(vertical = 16.dp, horizontal = 8.dp)
-                else Modifier.padding(horizontal = 8.dp)
+                    Modifier.padding(16.dp)
+                else Modifier.padding(horizontal = 16.dp)
             ) {
                 Text(
                     text = title,
@@ -82,7 +82,7 @@ fun SwitchPreferenceView(
             onCheckedChange = {
                 onValueChange(it)
             },
-            modifier = Modifier.padding(horizontal = 8.dp)
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
     }
 }

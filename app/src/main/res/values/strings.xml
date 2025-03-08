@@ -102,6 +102,6 @@
     <string name="open_google_books_links">"Open google books links in app "</string>
     <string name="version_code">Version Code</string>
     <string name="use_dynamic_colors">Dynamic colors</string>
-    <string name="use_black_colors_description">Enable this option to use a completely black theme, ideal for OLED displays.</string>
-    <string name="use_dynamic_colors_description">Turn this on to adapt the app’s color scheme based on your wallpaper or system theme.</string>
+    <string name="use_black_colors_description">Completely black theme, ideal for OLED displays.</string>
+    <string name="use_dynamic_colors_description">Adapt the app’s color scheme based on your wallpaper or system theme.</string>
 </resources>
