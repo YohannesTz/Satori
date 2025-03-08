@@ -17,15 +17,20 @@ class PreferencesRepository(
     private val dataStore: DataStore<Preferences>
 ) {
     val theme = dataStore.getValue(THEME_KEY, ThemeStyle.FOLLOW_SYSTEM.name)
-        .map { ThemeStyle.valueOfOrNull(it) ?: ThemeStyle.FOLLOW_SYSTEM }
+        .map { ThemeStyle.valueOfOrNull(it) ?: ThemeStyle.LIGHT }
 
     suspend fun setTheme(value: ThemeStyle) {
         dataStore.setValue(THEME_KEY, value.name)
     }
 
-    val useBlackColors = dataStore.getValue(USE_BLACK_COLORS_KEY, false)
+    val useBlackColors = dataStore.getValue(USE_BLACK_COLORS_KEY, true)
     suspend fun setUseBlackColors(value: Boolean) {
         dataStore.setValue(USE_BLACK_COLORS_KEY, value)
+    }
+
+    val useDynamicColors = dataStore.getValue(USE_DYNAMIC_COLORS_KEY, false)
+    suspend fun setUseDynamicColors(value: Boolean) {
+        dataStore.setValue(USE_DYNAMIC_COLORS_KEY, value)
     }
 
     val startTab = dataStore.getValue(START_TAB_KEY, StartTab.LAST_USED.value)
@@ -62,6 +67,7 @@ class PreferencesRepository(
     companion object {
         private val THEME_KEY = stringPreferencesKey("theme")
         private val USE_BLACK_COLORS_KEY = booleanPreferencesKey("use_black_colors")
+        private val USE_DYNAMIC_COLORS_KEY = booleanPreferencesKey("use_dynamic_colors")
         private val LAST_TAB_KEY = intPreferencesKey("last_tab")
         private val START_TAB_KEY = stringPreferencesKey("start_tab")
         private val VOLUME_LIST_VIEW_MODE = stringPreferencesKey("volume_list_view_mode")

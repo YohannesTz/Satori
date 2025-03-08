@@ -69,12 +69,16 @@ class MainActivity : ComponentActivity() {
         val lastTabOpened = findLastTabOpened()
         val initialTheme = runBlocking { viewModel.theme.first() }
         val initialUseBlackColors = runBlocking { viewModel.useBlackColors.first() }
+        val initialUseDynamicColors = runBlocking { viewModel.useDynamicColors.first() }
 
         setContent {
             KoinAndroidContext {
                 val theme by viewModel.theme.collectAsStateWithLifecycle(initialValue = initialTheme)
                 val useBlackColors by viewModel.useBlackColors.collectAsStateWithLifecycle(
                     initialValue = initialUseBlackColors
+                )
+                val useDynamicColors by viewModel.useDynamicColors.collectAsStateWithLifecycle(
+                    initialValue = initialUseDynamicColors
                 )
                 val isDark =
                     if (theme == ThemeStyle.FOLLOW_SYSTEM) isSystemInDarkTheme() else theme == ThemeStyle.DARK
@@ -89,7 +93,8 @@ class MainActivity : ComponentActivity() {
 
                 SatoriTheme(
                     darkTheme = isDark,
-                    useBlackColors = useBlackColors
+                    useBlackColors = useBlackColors,
+                    dynamicColor = useDynamicColors
                 ) {
                     val backgroundColor = MaterialTheme.colorScheme.background
                     Surface(

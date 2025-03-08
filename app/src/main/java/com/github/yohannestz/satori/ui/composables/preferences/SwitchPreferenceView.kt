@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun SwitchPreferenceView(
@@ -60,20 +59,19 @@ fun SwitchPreferenceView(
 
             Column(
                 modifier = if (subtitle != null)
-                    Modifier.padding(16.dp)
-                else Modifier.padding(horizontal = 16.dp)
+                    Modifier.padding(vertical = 16.dp, horizontal = 8.dp)
+                else Modifier.padding(horizontal = 8.dp)
             ) {
                 Text(
                     text = title,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
 
                 if (subtitle != null) {
                     Text(
                         text = subtitle,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontSize = 13.sp,
-                        lineHeight = 14.sp
+                        style = MaterialTheme.typography.bodySmall
                     )
                 }
             }
@@ -84,7 +82,7 @@ fun SwitchPreferenceView(
             onCheckedChange = {
                 onValueChange(it)
             },
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 8.dp)
         )
     }
 }

@@ -9,6 +9,7 @@ import com.github.yohannestz.satori.ui.base.event.UiEvent
 interface SettingsEvent : UiEvent {
     fun onThemeChanged(theme: ThemeStyle)
     fun onUseBlackColors(value: Boolean)
+    fun onUseDynamicColors(value: Boolean)
     fun onViewModeChanged(value: ViewMode)
     fun onStartTabChanged(value: StartTab?)
     fun onOnlyShowFreeContentChanged(value: Boolean)

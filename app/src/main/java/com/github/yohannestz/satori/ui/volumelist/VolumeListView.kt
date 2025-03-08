@@ -21,7 +21,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -142,8 +141,8 @@ private fun VolumeListContent(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .nestedScroll(topAppBarScrollBehavior.nestedScrollConnection),
-            ) {
+                .nestedScroll(topAppBarScrollBehavior.nestedScrollConnection)
+        ) {
             val listModifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.TopStart)

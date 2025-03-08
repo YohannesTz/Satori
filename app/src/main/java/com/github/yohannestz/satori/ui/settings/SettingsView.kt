@@ -97,8 +97,16 @@ private fun SettingsViewContent(
 
             SwitchPreferenceView(
                 title = stringResource(R.string.use_black_colors),
+                subtitle = stringResource(R.string.use_black_colors_description),
                 value = uiState.useBlackColors,
                 onValueChange = event::onUseBlackColors
+            )
+
+            SwitchPreferenceView(
+                title = stringResource(R.string.use_dynamic_colors),
+                subtitle = stringResource(R.string.use_dynamic_colors_description),
+                value = uiState.useDynamicColors,
+                onValueChange = event::onUseDynamicColors
             )
 
             ListPreferenceView(
@@ -115,7 +123,7 @@ private fun SettingsViewContent(
                 onValueChange = { event.onStartTabChanged(it) }
             )
 
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(24.dp))
             SettingsTitle(text = stringResource(R.string.content))
 
             ListPreferenceView(

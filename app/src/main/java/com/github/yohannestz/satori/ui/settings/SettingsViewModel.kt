@@ -32,6 +32,12 @@ class SettingsViewModel(
         }
     }
 
+    override fun onUseDynamicColors(value: Boolean) {
+        viewModelScope.launch {
+            defaultPreferenceRepository.setUseDynamicColors(value)
+        }
+    }
+
     override fun onViewModeChanged(value: ViewMode) {
         viewModelScope.launch {
             defaultPreferenceRepository.setVolumeListViewMode(value)
@@ -66,6 +72,12 @@ class SettingsViewModel(
         defaultPreferenceRepository.useBlackColors
             .onEach { value ->
                 mutableUiState.update { it.copy(useBlackColors = value) }
+            }
+            .launchIn(viewModelScope)
+
+        defaultPreferenceRepository.useDynamicColors
+            .onEach { value ->
+                mutableUiState.update { it.copy(useDynamicColors = value) }
             }
             .launchIn(viewModelScope)
 

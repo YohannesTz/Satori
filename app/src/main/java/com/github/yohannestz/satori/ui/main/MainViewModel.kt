@@ -22,4 +22,5 @@ class MainViewModel(
         .stateIn(viewModelScope, SharingStarted.Eagerly, ThemeStyle.FOLLOW_SYSTEM)
 
     val useBlackColors = preferencesRepository.useBlackColors
+    val useDynamicColors = preferencesRepository.useDynamicColors
 }

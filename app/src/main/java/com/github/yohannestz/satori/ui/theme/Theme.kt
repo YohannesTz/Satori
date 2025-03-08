@@ -92,7 +92,7 @@ private fun ColorScheme.toBlack() = this.copy(
 @Composable
 fun SatoriTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     useBlackColors: Boolean = false,
     content: @Composable () -> Unit
 ) {
